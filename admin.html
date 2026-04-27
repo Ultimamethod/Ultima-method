@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ultima · Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --void: #0A0F1E; --deep: #0D1A2E; --night: #132238;
+  --steel: #1E3A5F; --rule: #243D5C; --signal: #7B9FBE;
+  --ice: #C8DCF0; --white: #E8F4FF;
+  --mono: 'Space Mono', monospace; --sans: 'DM Sans', sans-serif;
+  --green: #4a9e6b; --red: #9e4a4a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--void); color: var(--white); font-family: var(--sans); font-weight: 300; }
+
+/* LOGIN */
+#login {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 24px;
+}
+.login-logo {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .28em;
+  color: var(--signal); text-transform: uppercase; margin-bottom: 8px;
+}
+.login-title {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .22em;
+  color: rgba(123,159,190,.4); text-transform: uppercase; margin-bottom: 32px;
+}
+.login-box { display: flex; flex-direction: column; gap: 12px; width: 280px; }
+.login-input {
+  background: var(--deep); border: .5px solid var(--rule); color: var(--white);
+  font-family: var(--sans); font-size: 14px; font-weight: 300;
+  padding: 14px 16px; outline: none; transition: border-color .2s; width: 100%;
+}
+.login-input:focus { border-color: var(--signal); }
+.login-btn {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--void); background: var(--white); border: none; padding: 14px;
+  cursor: pointer; transition: background .2s;
+}
+.login-btn:hover { background: var(--signal); }
+.login-err { font-family: var(--mono); font-size: 8px; letter-spacing: .14em; color: #9e4a4a; text-transform: uppercase; display: none; text-align: center; }
+
+/* ADMIN SHELL */
+#admin { display: none; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+  background: var(--deep); border-right: .5px solid var(--rule);
+  display: flex; flex-direction: column; padding: 32px 0;
+}
+.sidebar-logo {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
+  color: var(--signal); text-transform: uppercase; padding: 0 24px; margin-bottom: 8px;
+}
+.sidebar-sub {
+  font-family: var(--mono); font-size: 7px; letter-spacing: .16em;
+  color: rgba(123,159,190,.35); text-transform: uppercase; padding: 0 24px; margin-bottom: 40px;
+}
+.sidebar-nav { display: flex; flex-direction: column; flex: 1; }
+.nav-item {
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--signal); padding: 14px 24px; cursor: pointer; transition: all .2s;
+  border-left: 2px solid transparent;
+}
+.nav-item:hover { color: var(--white); background: rgba(123,159,190,.06); }
+.nav-item.active { color: var(--white); border-left-color: var(--signal); background: rgba(123,159,190,.08); }
+.sidebar-logout {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(123,159,190,.3); padding: 14px 24px; cursor: pointer; transition: color .2s;
+  margin-top: auto;
+}
+.sidebar-logout:hover { color: var(--signal); }
+
+/* MAIN */
+.main { margin-left: 220px; padding: 48px; min-height: 100vh; }
+.page-title {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
+  color: var(--signal); text-transform: uppercase; margin-bottom: 8px;
+}
+.page-sub { font-size: .85rem; color: rgba(123,159,190,.5); margin-bottom: 40px; }
+
+/* TABS */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* CARDS */
+.card {
+  background: var(--deep); border: .5px solid var(--rule);
+  padding: 32px; margin-bottom: 16px;
+}
+.card-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
+}
+.card-title { font-family: var(--mono); font-size: 9px; letter-spacing: .2em; color: var(--white); text-transform: uppercase; }
+
+/* TABLE */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  font-family: var(--mono); font-size: 7.5px; letter-spacing: .16em; color: var(--signal);
+  text-transform: uppercase; padding: 10px 14px; border-bottom: .5px solid var(--rule);
+  text-align: left; font-weight: 400;
+}
+.data-table td { padding: 14px; border-bottom: .5px solid rgba(36,61,92,.5); font-size: .84rem; color: rgba(232,244,255,.75); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(123,159,190,.04); }
+
+/* BADGES */
+.badge {
+  font-family: var(--mono); font-size: 7px; letter-spacing: .12em; text-transform: uppercase;
+  padding: 3px 9px; border: .5px solid; display: inline-block;
+}
+.badge-pending  { color: var(--signal); border-color: var(--signal); }
+.badge-approved { color: var(--green);  border-color: var(--green); }
+.badge-rejected { color: var(--red);    border-color: var(--red); }
+.badge-low      { color: #9e6a4a; border-color: #9e6a4a; }
+
+/* BUTTONS */
+.btn {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
+  padding: 9px 18px; cursor: pointer; border: none; transition: background .2s; display: inline-block;
+}
+.btn-white  { color: var(--void); background: var(--white); }
+.btn-white:hover { background: var(--signal); }
+.btn-ghost  { color: var(--signal); background: transparent; border: .5px solid var(--rule); }
+.btn-ghost:hover { border-color: var(--signal); color: var(--white); }
+.btn-green  { color: #fff; background: var(--green); }
+.btn-green:hover { opacity: .85; }
+.btn-red    { color: #fff; background: var(--red); }
+.btn-red:hover { opacity: .85; }
+.btn-sm { padding: 6px 12px; font-size: 7.5px; }
+
+/* FORMS */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.form-group label { font-family: var(--mono); font-size: 7.5px; letter-spacing: .16em; color: var(--signal); text-transform: uppercase; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--void); border: .5px solid var(--rule); color: var(--white);
+  font-family: var(--sans); font-weight: 300; font-size: 13px;
+  padding: 11px 13px; outline: none; transition: border-color .2s;
+  appearance: none; -webkit-appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--signal); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(123,159,190,.25); }
+.form-group textarea { resize: vertical; min-height: 80px; font-family: var(--sans); }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(10,15,30,.92); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-box {
+  background: var(--deep); border: .5px solid var(--rule);
+  width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto;
+  transform: translateY(12px); transition: transform .3s;
+  padding: 36px;
+}
+.modal-overlay.open .modal-box { transform: none; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+.modal-title { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; color: var(--white); text-transform: uppercase; }
+.modal-close { background: none; border: none; color: var(--signal); cursor: pointer; font-size: 16px; }
+
+/* COACH CARD */
+.coach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.coach-card {
+  background: var(--night); border: .5px solid var(--rule); padding: 24px;
+  display: flex; flex-direction: column; gap: 10px; transition: border-color .2s;
+}
+.coach-card:hover { border-color: var(--signal); }
+.coach-photo {
+  width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--steel);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.coach-photo img { width: 100%; height: 100%; object-fit: cover; }
+.coach-photo-placeholder {
+  font-family: var(--mono); font-size: 28px; color: var(--signal); opacity: .4;
+}
+.coach-name { font-family: var(--mono); font-size: 9px; letter-spacing: .16em; color: var(--white); text-transform: uppercase; }
+.coach-role { font-size: .8rem; color: var(--signal); }
+.coach-actions { display: flex; gap: 8px; margin-top: 4px; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 32px; right: 32px; z-index: 9999;
+  background: var(--deep); border: .5px solid var(--signal);
+  padding: 14px 24px; font-family: var(--mono); font-size: 8px;
+  letter-spacing: .16em; color: var(--signal); text-transform: uppercase;
+  opacity: 0; transform: translateY(8px); transition: all .3s; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: none; }
+
+/* STATS ROW */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.stat-box { background: var(--deep); border: .5px solid var(--rule); padding: 24px; }
+.stat-val { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 6px; }
+.stat-lbl { font-family: var(--mono); font-size: 7.5px; letter-spacing: .16em; color: var(--signal); text-transform: uppercase; }
+
+/* APPLICATION DETAIL */
+.app-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.app-field label { font-family: var(--mono); font-size: 7.5px; letter-spacing: .14em; color: var(--signal); text-transform: uppercase; display: block; margin-bottom: 4px; }
+.app-field p { font-size: .85rem; color: var(--white); line-height: 1.6; }
+.app-field.full { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-logo">Ultima · The Method</div>
+  <div class="login-title">Admin Panel · Restricted Access</div>
+  <div class="login-box">
+    <input type="password" class="login-input" id="loginInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Enter</button>
+    <div class="login-err" id="loginErr">Incorrect password</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin">
+  <div class="sidebar">
+    <div class="sidebar-logo">Ultima</div>
+    <div class="sidebar-sub">Admin · The Method</div>
+    <div class="sidebar-nav">
+      <div class="nav-item active" onclick="switchTab('dashboard')">Dashboard</div>
+      <div class="nav-item" onclick="switchTab('schedule')">Schedule</div>
+      <div class="nav-item" onclick="switchTab('coaches')">Coaches</div>
+      <div class="nav-item" onclick="switchTab('applications')">Applications</div>
+    </div>
+    <div class="sidebar-logout" onclick="doLogout()">Log out</div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="tab-panel active" id="tab-dashboard">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">Overview of Ultima · The Method</div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val" id="stat-sessions">—</div>
+          <div class="stat-lbl">Active Sessions</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-coaches">—</div>
+          <div class="stat-lbl">Coaches</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-applications">—</div>
+          <div class="stat-lbl">Total Applications</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-pending">—</div>
+          <div class="stat-lbl">Pending Review</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Recent Applications</span>
+          <button class="btn btn-ghost btn-sm" onclick="switchTab('applications')">View all</button>
+        </div>
+        <table class="data-table" id="dash-recent">
+          <thead><tr><th>Name</th><th>Email</th><th>Submitted</th><th>Status</th></tr></thead>
+          <tbody id="dash-recent-body"><tr><td colspan="4" style="color:var(--signal);font-size:.8rem">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SCHEDULE -->
+    <div class="tab-panel" id="tab-schedule">
+      <div class="page-title">Schedule</div>
+      <div class="page-sub">Add, edit or remove sessions. Changes go live immediately.</div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Sessions</span>
+          <button class="btn btn-white btn-sm" onclick="openSessionModal()">+ Add session</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Day</th><th>Time</th><th>Session</th><th>Coach</th><th>Phase</th><th>Spots</th><th></th></tr></thead>
+          <tbody id="sessions-body"><tr><td colspan="7" style="color:var(--signal);font-size:.8rem">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COACHES -->
+    <div class="tab-panel" id="tab-coaches">
+      <div class="page-title">Coaches</div>
+      <div class="page-sub">Manage coach profiles. These appear on the Coaches page of the website.</div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <button class="btn btn-white btn-sm" onclick="openCoachModal()">+ Add coach</button>
+      </div>
+      <div class="coach-grid" id="coaches-grid">
+        <div style="color:var(--signal);font-size:.8rem;font-family:var(--mono);font-size:8px;letter-spacing:.14em">Loading...</div>
+      </div>
+    </div>
+
+    <!-- APPLICATIONS -->
+    <div class="tab-panel" id="tab-applications">
+      <div class="page-title">Applications</div>
+      <div class="page-sub">Review and action membership applications.</div>
+      <div style="display:flex;gap:8px;margin-bottom:24px">
+        <button class="btn btn-ghost btn-sm" onclick="filterApps('all')" id="filter-all">All</button>
+        <button class="btn btn-ghost btn-sm" onclick="filterApps('pending')" id="filter-pending">Pending</button>
+        <button class="btn btn-ghost btn-sm" onclick="filterApps('approved')" id="filter-approved">Approved</button>
+        <button class="btn btn-ghost btn-sm" onclick="filterApps('rejected')" id="filter-rejected">Rejected</button>
+      </div>
+      <div class="card" style="padding:0">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Experience</th><th>Source</th><th>Submitted</th><th>Status</th><th></th></tr></thead>
+          <tbody id="apps-body"><tr><td colspan="7" style="padding:24px;color:var(--signal);font-size:.8rem">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SESSION MODAL -->
+<div class="modal-overlay" id="session-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="session-modal-title">Add Session</span>
+      <button class="modal-close" onclick="closeModal('session-modal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Day</label>
+        <select id="s-day">
+          <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+          <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Time</label><input type="time" id="s-time"/></div>
+    </div>
+    <div class="form-group"><label>Session Name</label><input type="text" id="s-name" placeholder="e.g. Full Body Equilibrium"/></div>
+    <div class="form-row">
+      <div class="form-group"><label>Coach</label><input type="text" id="s-coach" placeholder="Coach name"/></div>
+      <div class="form-group"><label>Duration</label>
+        <select id="s-duration">
+          <option>45 min</option><option>50 min</option><option>60 min</option>
+          <option>75 min</option><option>90 min</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Phase / Category</label>
+        <select id="s-phase">
+          <option value="foundation">Foundation</option>
+          <option value="precision">Precision</option>
+          <option value="apex">Apex</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Total Spots</label><input type="number" id="s-spots" value="10" min="1" max="50"/></div>
+    </div>
+    <div class="form-group"><label>Spots Remaining</label><input type="number" id="s-spots-left" value="10" min="0" max="50"/></div>
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <button class="btn btn-white" onclick="saveSession()">Save Session</button>
+      <button class="btn btn-ghost" onclick="closeModal('session-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- COACH MODAL -->
+<div class="modal-overlay" id="coach-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="coach-modal-title">Add Coach</span>
+      <button class="modal-close" onclick="closeModal('coach-modal')">✕</button>
+    </div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="c-name" placeholder="Coach full name"/></div>
+    <div class="form-group"><label>Role / Speciality</label><input type="text" id="c-role" placeholder="e.g. Strength & Conditioning Coach"/></div>
+    <div class="form-group"><label>Bio</label><textarea id="c-bio" placeholder="Short bio — 1–2 sentences."></textarea></div>
+    <div class="form-group">
+      <label>Photo</label>
+      <input type="file" id="c-photo" accept="image/*" style="color:var(--signal);font-family:var(--mono);font-size:8px"/>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <button class="btn btn-white" onclick="saveCoach()">Save Coach</button>
+      <button class="btn btn-ghost" onclick="closeModal('coach-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION DETAIL MODAL -->
+<div class="modal-overlay" id="app-modal">
+  <div class="modal-box" style="max-width:680px">
+    <div class="modal-header">
+      <span class="modal-title" id="app-modal-name">Application</span>
+      <button class="modal-close" onclick="closeModal('app-modal')">✕</button>
+    </div>
+    <div class="app-detail" id="app-detail-body"></div>
+    <div style="display:flex;gap:12px;margin-top:28px" id="app-action-btns"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const ADMIN_PW = '110703';
+let adminPassword = '';
+let sessions = [], coaches = [], applications = [];
+let editingSessionId = null, editingCoachId = null;
+let currentAppFilter = 'all';
+
+/* ── AUTH ── */
+function doLogin() {
+  const pw = document.getElementById('loginInput').value;
+  if (pw === ADMIN_PW) {
+    adminPassword = pw;
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('admin').style.display = 'block';
+    loadAll();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+function doLogout() {
+  adminPassword = '';
+  document.getElementById('login').style.display = 'flex';
+  document.getElementById('admin').style.display = 'none';
+  document.getElementById('loginInput').value = '';
+}
+
+/* ── TABS ── */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => { if (n.textContent.toLowerCase().includes(tab)) n.classList.add('active'); });
+}
+
+/* ── LOAD ALL ── */
+async function loadAll() {
+  await Promise.all([loadSessions(), loadCoaches(), loadApplications()]);
+  updateDashboard();
+}
+
+/* ── SESSIONS ── */
+async function loadSessions() {
+  try {
+    const res = await fetch('/.netlify/functions/get-data?type=schedule');
+    sessions = await res.json();
+  } catch(e) { sessions = []; }
+  renderSessions();
+}
+
+function renderSessions() {
+  const body = document.getElementById('sessions-body');
+  if (!sessions.length) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;color:var(--signal);font-size:.8rem">No sessions yet.</td></tr>'; return; }
+  body.innerHTML = sessions.map(s => `
+    <tr>
+      <td>${s.day}</td>
+      <td style="font-family:var(--mono);font-size:.8rem">${s.time}</td>
+      <td>${s.name}</td>
+      <td style="color:rgba(232,244,255,.55)">${s.coach}</td>
+      <td><span class="badge badge-pending">${s.phase}</span></td>
+      <td style="font-family:var(--mono);font-size:.8rem">${s.spotsLeft}/${s.spots}</td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="editSession('${s.id}')">Edit</button>
+        <button class="btn btn-red btn-sm" style="margin-left:6px" onclick="deleteSession('${s.id}')">Remove</button>
+      </td>
+    </tr>`).join('');
+}
+
+function openSessionModal(id) {
+  editingSessionId = id || null;
+  document.getElementById('session-modal-title').textContent = id ? 'Edit Session' : 'Add Session';
+  if (id) {
+    const s = sessions.find(x => x.id === id);
+    document.getElementById('s-day').value = s.day;
+    document.getElementById('s-time').value = s.time;
+    document.getElementById('s-name').value = s.name;
+    document.getElementById('s-coach').value = s.coach;
+    document.getElementById('s-duration').value = s.duration;
+    document.getElementById('s-phase').value = s.phase;
+    document.getElementById('s-spots').value = s.spots;
+    document.getElementById('s-spots-left').value = s.spotsLeft;
+  } else {
+    document.getElementById('s-day').value = 'Monday';
+    document.getElementById('s-time').value = '06:00';
+    document.getElementById('s-name').value = '';
+    document.getElementById('s-coach').value = '';
+    document.getElementById('s-duration').value = '60 min';
+    document.getElementById('s-phase').value = 'foundation';
+    document.getElementById('s-spots').value = '10';
+    document.getElementById('s-spots-left').value = '10';
+  }
+  document.getElementById('session-modal').classList.add('open');
+}
+
+function editSession(id) { openSessionModal(id); }
+
+async function saveSession() {
+  const session = {
+    id: editingSessionId || Date.now().toString(),
+    day: document.getElementById('s-day').value,
+    time: document.getElementById('s-time').value,
+    name: document.getElementById('s-name').value,
+    coach: document.getElementById('s-coach').value,
+    duration: document.getElementById('s-duration').value,
+    phase: document.getElementById('s-phase').value,
+    spots: parseInt(document.getElementById('s-spots').value),
+    spotsLeft: parseInt(document.getElementById('s-spots-left').value),
+  };
+  if (!session.name || !session.coach) { showToast('Please fill all fields'); return; }
+  if (editingSessionId) {
+    sessions = sessions.map(s => s.id === editingSessionId ? session : s);
+  } else {
+    sessions.push(session);
+  }
+  await saveToServer('schedule', sessions);
+  renderSessions();
+  closeModal('session-modal');
+  showToast('Session saved');
+}
+
+async function deleteSession(id) {
+  if (!confirm('Remove this session?')) return;
+  sessions = sessions.filter(s => s.id !== id);
+  await saveToServer('schedule', sessions);
+  renderSessions();
+  showToast('Session removed');
+}
+
+/* ── COACHES ── */
+async function loadCoaches() {
+  try {
+    const res = await fetch('/.netlify/functions/get-data?type=coaches');
+    coaches = await res.json();
+  } catch(e) { coaches = []; }
+  renderCoaches();
+}
+
+function renderCoaches() {
+  const grid = document.getElementById('coaches-grid');
+  if (!coaches.length) {
+    grid.innerHTML = '<div style="color:var(--signal);font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase">No coaches yet. Add your first coach.</div>';
+    return;
+  }
+  grid.innerHTML = coaches.map(c => `
+    <div class="coach-card">
+      <div class="coach-photo">
+        ${c.photo ? `<img src="${c.photo}" alt="${c.name}"/>` : `<div class="coach-photo-placeholder">${c.name.charAt(0)}</div>`}
+      </div>
+      <div class="coach-name">${c.name}</div>
+      <div class="coach-role">${c.role}</div>
+      <div class="coach-actions">
+        <button class="btn btn-ghost btn-sm" onclick="editCoach('${c.id}')">Edit</button>
+        <button class="btn btn-red btn-sm" onclick="deleteCoach('${c.id}')">Remove</button>
+      </div>
+    </div>`).join('');
+}
+
+function openCoachModal(id) {
+  editingCoachId = id || null;
+  document.getElementById('coach-modal-title').textContent = id ? 'Edit Coach' : 'Add Coach';
+  if (id) {
+    const c = coaches.find(x => x.id === id);
+    document.getElementById('c-name').value = c.name;
+    document.getElementById('c-role').value = c.role;
+    document.getElementById('c-bio').value = c.bio;
+  } else {
+    document.getElementById('c-name').value = '';
+    document.getElementById('c-role').value = '';
+    document.getElementById('c-bio').value = '';
+    document.getElementById('c-photo').value = '';
+  }
+  document.getElementById('coach-modal').classList.add('open');
+}
+
+function editCoach(id) { openCoachModal(id); }
+
+async function saveCoach() {
+  const name = document.getElementById('c-name').value.trim();
+  const role = document.getElementById('c-role').value.trim();
+  const bio  = document.getElementById('c-bio').value.trim();
+  const photoFile = document.getElementById('c-photo').files[0];
+  if (!name || !role) { showToast('Please fill all fields'); return; }
+
+  let photo = editingCoachId ? (coaches.find(c => c.id === editingCoachId)?.photo || '') : '';
+  if (photoFile) {
+    photo = await toBase64(photoFile);
+  }
+
+  const coach = { id: editingCoachId || Date.now().toString(), name, role, bio, photo };
+  if (editingCoachId) {
+    coaches = coaches.map(c => c.id === editingCoachId ? coach : c);
+  } else {
+    coaches.push(coach);
+  }
+  await saveToServer('coaches', coaches);
+  renderCoaches();
+  closeModal('coach-modal');
+  showToast('Coach saved');
+}
+
+async function deleteCoach(id) {
+  if (!confirm('Remove this coach?')) return;
+  coaches = coaches.filter(c => c.id !== id);
+  await saveToServer('coaches', coaches);
+  renderCoaches();
+  showToast('Coach removed');
+}
+
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+/* ── APPLICATIONS ── */
+async function loadApplications() {
+  try {
+    const res = await fetch('/.netlify/functions/get-data?type=applications', {
+      headers: { 'x-admin-password': adminPassword }
+    });
+    applications = await res.json();
+    if (!Array.isArray(applications)) applications = [];
+  } catch(e) { applications = []; }
+  renderApplications();
+}
+
+function filterApps(filter) {
+  currentAppFilter = filter;
+  document.querySelectorAll('[id^="filter-"]').forEach(b => b.classList.remove('btn-white'));
+  document.getElementById('filter-' + filter)?.classList.add('btn-white');
+  renderApplications();
+}
+
+function renderApplications() {
+  const body = document.getElementById('apps-body');
+  const filtered = currentAppFilter === 'all' ? applications : applications.filter(a => a.status === currentAppFilter);
+  if (!filtered.length) {
+    body.innerHTML = '<tr><td colspan="7" style="padding:24px;color:var(--signal);font-size:.8rem">No applications found.</td></tr>';
+    return;
+  }
+  body.innerHTML = filtered.map(a => `
+    <tr>
+      <td>${a.name || '—'}</td>
+      <td style="color:rgba(232,244,255,.55);font-size:.8rem">${a.email || '—'}</td>
+      <td style="font-size:.8rem">${a.experience || '—'}</td>
+      <td style="font-size:.8rem">${a.source || '—'}</td>
+      <td style="font-family:var(--mono);font-size:.75rem;color:rgba(123,159,190,.5)">${formatDate(a.submittedAt)}</td>
+      <td><span class="badge badge-${a.status || 'pending'}">${a.status || 'pending'}</span></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="viewApplication('${a.id}')">Review</button></td>
+    </tr>`).join('');
+}
+
+function viewApplication(id) {
+  const a = applications.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('app-modal-name').textContent = a.name || 'Application';
+  document.getElementById('app-detail-body').innerHTML = `
+    <div class="app-field"><label>Full Name</label><p>${a.name || '—'}</p></div>
+    <div class="app-field"><label>Email</label><p>${a.email || '—'}</p></div>
+    <div class="app-field"><label>City / Country</label><p>${a.location || '—'}</p></div>
+    <div class="app-field"><label>Experience</label><p>${a.experience || '—'}</p></div>
+    <div class="app-field"><label>Discipline</label><p>${a.discipline || '—'}</p></div>
+    <div class="app-field"><label>Source</label><p>${a.source || '—'}</p></div>
+    <div class="app-field full"><label>Performance Goal</label><p>${a.goal || '—'}</p></div>
+    <div class="app-field full"><label>Why Ultima</label><p>${a.why || '—'}</p></div>
+    <div class="app-field"><label>Status</label><p><span class="badge badge-${a.status}">${a.status}</span></p></div>
+    <div class="app-field"><label>Submitted</label><p>${formatDate(a.submittedAt)}</p></div>
+  `;
+  const btns = document.getElementById('app-action-btns');
+  if (a.status === 'pending') {
+    btns.innerHTML = `
+      <button class="btn btn-green" onclick="updateAppStatus('${id}','approved')">Approve</button>
+      <button class="btn btn-red"   onclick="updateAppStatus('${id}','rejected')">Reject</button>
+      <button class="btn btn-ghost" onclick="closeModal('app-modal')">Close</button>`;
+  } else {
+    btns.innerHTML = `
+      <button class="btn btn-ghost btn-sm" onclick="updateAppStatus('${id}','pending')">Reset to Pending</button>
+      <button class="btn btn-ghost" onclick="closeModal('app-modal')">Close</button>`;
+  }
+  document.getElementById('app-modal').classList.add('open');
+}
+
+async function updateAppStatus(id, status) {
+  await fetch('/.netlify/functions/save-data', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+    body: JSON.stringify({ type: 'application-status', data: { id, status } })
+  });
+  applications = applications.map(a => a.id === id ? { ...a, status } : a);
+  renderApplications();
+  updateDashboard();
+  closeModal('app-modal');
+  showToast(`Application ${status}`);
+}
+
+/* ── DASHBOARD ── */
+function updateDashboard() {
+  document.getElementById('stat-sessions').textContent = sessions.length;
+  document.getElementById('stat-coaches').textContent = coaches.length;
+  document.getElementById('stat-applications').textContent = applications.length;
+  document.getElementById('stat-pending').textContent = applications.filter(a => a.status === 'pending').length;
+  const recent = [...applications].slice(0, 5);
+  const body = document.getElementById('dash-recent-body');
+  if (!recent.length) { body.innerHTML = '<tr><td colspan="4" style="padding:16px;color:var(--signal);font-size:.8rem">No applications yet.</td></tr>'; return; }
+  body.innerHTML = recent.map(a => `
+    <tr>
+      <td>${a.name || '—'}</td>
+      <td style="font-size:.8rem;color:rgba(232,244,255,.55)">${a.email || '—'}</td>
+      <td style="font-family:var(--mono);font-size:.75rem;color:rgba(123,159,190,.4)">${formatDate(a.submittedAt)}</td>
+      <td><span class="badge badge-${a.status || 'pending'}">${a.status || 'pending'}</span></td>
+    </tr>`).join('');
+}
+
+/* ── SERVER ── */
+async function saveToServer(type, data) {
+  try {
+    await fetch('/.netlify/functions/save-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+      body: JSON.stringify({ type, data })
+    });
+  } catch(e) { showToast('Save failed — check connection'); }
+}
+
+/* ── HELPERS ── */
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function formatDate(iso) { if (!iso) return '—'; return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* close modal on overlay click */
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+</script>
+</body>
+</html>
