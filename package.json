@@ -1,6 +1,12 @@
 {
   "name": "ultima-method",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "deploy": "echo 'Deploy complete'"
+  },
   "dependencies": {
     "stripe": "^14.0.0",
     "@netlify/blobs": "^7.0.0"
