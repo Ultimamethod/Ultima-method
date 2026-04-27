@@ -1365,6 +1365,9 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
       </svg>
       <div class="success-title">Spot Reserved.</div>
       <div class="success-sub" id="successSub">Your edge awaits.</div>
+      <div id="cancelInfo" style="display:none;margin-top:20px;font-family:var(--mono);font-size:7.5px;letter-spacing:.14em;color:rgba(123,159,190,.45);text-transform:uppercase;line-height:1.8">
+        Need to cancel? Visit ultimamethod.com/cancel.html<br>Cancellations accepted up to 24 hours before your session.
+      </div>
     </div>
   </div>
 </div>
@@ -1409,7 +1412,7 @@ async function submitApplication(e) {
   const form = e.target;
   const data = Object.fromEntries(new FormData(form));
   try {
-    await fetch('/.netlify/functions/save-data', {
+    await fetch('/api/save-data', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type: 'application', data })
@@ -1429,7 +1432,7 @@ function submitContact(e) {
 /* SCHEDULE — load live from backend */
 async function loadSchedule() {
   try {
-    const res = await fetch('/.netlify/functions/get-data?type=schedule');
+    const res = await fetch('/api/get-data?type=schedule');
     const sessions = await res.json();
     if (!Array.isArray(sessions) || !sessions.length) return;
     const grid = document.getElementById('classGrid');
@@ -1450,7 +1453,7 @@ async function loadSchedule() {
 /* COACHES — load live from backend */
 async function loadCoachesPage() {
   try {
-    const res = await fetch('/.netlify/functions/get-data?type=coaches');
+    const res = await fetch('/api/get-data?type=coaches');
     const coaches = await res.json();
     const grid = document.getElementById('coaches-page-grid');
     if (!grid || !coaches.length) return;
@@ -1484,7 +1487,7 @@ document.querySelectorAll('.fbtn').forEach(b => {
 
 /* STRIPE */
 const STRIPE_PK = 'pk_live_51TQoYU6VKnWXOpD8saO1NjO6jzFQIU6iUApbezzteNj2s96CKc2YiCnyGsz6Jnqia5Xu6FBfrWKw5ADaczUMD2TW00oa0DRvNP';
-let stripe, cardElement, currentSession = '';
+let stripe, cardElement, currentSession = '', currentSessionId = '', currentSessionDay = '', currentSessionDateTime = '';
 function initStripe() {
   if (typeof Stripe === 'undefined' || stripe) return;
   stripe = Stripe(STRIPE_PK);
@@ -1498,8 +1501,11 @@ function initStripe() {
 }
 
 /* MODAL */
-function openModal(name, meta, coach) {
+function openModal(name, meta, coach, sessionId, day, datetime) {
   currentSession = name;
+  currentSessionId = sessionId || '';
+  currentSessionDay = day || '';
+  currentSessionDateTime = datetime || '';
   document.getElementById('mTitle').textContent = name;
   document.getElementById('mMeta').textContent  = meta + ' · ' + coach;
   document.getElementById('modalFormWrap').style.display = '';
@@ -1533,11 +1539,14 @@ async function handlePay() {
 
   try {
     // Step 1: create PaymentIntent on server
-    const res = await fetch('/.netlify/functions/create-payment-intent', {
+    const res = await fetch('/api/create-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         sessionName: currentSession,
+        sessionId: currentSessionId || '',
+        sessionDay: currentSessionDay || '',
+        sessionTime: currentSessionDateTime || '',
         customerName: first + ' ' + last,
         customerEmail: email
       })
@@ -1550,18 +1559,36 @@ async function handlePay() {
     }
 
     // Step 2: confirm card payment
-    const { error, paymentIntent } = await stripe.confirmCardPayment(data.clientSecret, {
+    const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(data.clientSecret, {
       payment_method: {
         card: cardElement,
         billing_details: { name: first + ' ' + last, email }
       }
     });
 
-    if (error) {
-      err.textContent = error.message;
+    if (stripeError) {
+      err.textContent = stripeError.message;
       err.style.display = 'block';
     } else if (paymentIntent.status === 'succeeded') {
-      showSuccess(first);
+      // Step 3: save booking record
+      await fetch('/api/save-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'booking',
+          data: {
+            sessionName: currentSession,
+            sessionDay: currentSessionDay || '',
+            sessionTime: currentSessionDateTime || '',
+            customerName: first + ' ' + last,
+            customerEmail: email,
+            paymentIntentId: paymentIntent.id,
+            amount: 280,
+            currency: 'HKD'
+          }
+        })
+      }).catch(() => {});
+      showSuccess(first, email);
     }
   } catch(e) {
     err.textContent = 'Payment failed. Please try again.';
@@ -1571,10 +1598,11 @@ async function handlePay() {
   btn.classList.remove('loading'); btn.disabled = false;
 }
 
-function showSuccess(first) {
+function showSuccess(first, email) {
   document.getElementById('modalFormWrap').style.display = 'none';
   document.getElementById('successWrap').style.display   = 'block';
-  document.getElementById('successSub').textContent      = 'Your edge awaits, ' + first + '.';
+  document.getElementById('successSub').textContent      = 'Your edge awaits, ' + first + '. A confirmation has been sent to ' + email + '.';
+  document.getElementById('cancelInfo').style.display    = 'block';
 }
 
 /* COACH PHOTO PREVIEW */

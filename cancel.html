@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ultima · Cancel Booking</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --void:#0A0F1E; --deep:#0D1A2E; --night:#132238;
+  --rule:#243D5C; --signal:#7B9FBE; --ice:#C8DCF0; --white:#E8F4FF;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif; --mono:'Space Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--white);font-family:var(--sans);font-weight:300;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;cursor:crosshair}
+
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:64px}
+.logo-wm{font-family:var(--serif);font-weight:300;font-size:20px;color:var(--white);letter-spacing:.08em;position:relative}
+.logo-wm::after{content:'';position:absolute;bottom:3px;left:0;right:0;border-top:.7px solid var(--rule)}
+.logo-attr{display:block;font-family:var(--mono);font-size:7px;letter-spacing:.28em;color:var(--signal);text-transform:uppercase;margin-top:5px}
+
+.card{background:var(--deep);border:.5px solid var(--rule);padding:52px;width:100%;max-width:520px}
+.card-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:.24em;color:var(--signal);text-transform:uppercase;margin-bottom:16px}
+.card-title{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:300;color:var(--white);line-height:1;margin-bottom:12px}
+.card-rule{width:32px;height:.5px;background:var(--rule);margin:20px 0}
+.card-body{font-size:.85rem;color:rgba(123,159,190,.6);line-height:1.8;margin-bottom:36px}
+
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--signal);text-transform:uppercase;margin-bottom:9px}
+.form-group input{width:100%;background:var(--void);border:.5px solid var(--rule);color:var(--white);font-family:var(--sans);font-weight:300;font-size:14px;padding:13px 15px;outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--signal)}
+.form-group input::placeholder{color:rgba(123,159,190,.25)}
+
+.search-btn{width:100%;font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--void);background:var(--white);border:none;padding:15px;cursor:pointer;transition:background .2s;margin-top:8px}
+.search-btn:hover{background:var(--signal)}
+.search-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* booking list */
+.bookings-list{margin-top:0}
+.booking-item{padding:24px 0;border-bottom:.5px solid var(--rule)}
+.booking-item:first-child{border-top:.5px solid var(--rule)}
+.booking-session{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--white);text-transform:uppercase;margin-bottom:6px}
+.booking-meta{font-size:.82rem;color:rgba(123,159,190,.55);margin-bottom:4px}
+.booking-status{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;display:inline-block;padding:3px 8px;border:.5px solid}
+.booking-status.confirmed{color:var(--signal);border-color:var(--signal)}
+.booking-status.cancelled{color:#906060;border-color:#906060}
+.booking-status.refunded{color:#6a9060;border-color:#6a9060}
+.cancel-btn{display:block;width:100%;font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#906060;background:transparent;border:.5px solid #906060;padding:10px;cursor:pointer;margin-top:14px;transition:all .2s}
+.cancel-btn:hover{background:#906060;color:var(--white)}
+.cancel-btn:disabled{opacity:.3;cursor:not-allowed}
+
+.policy-note{font-family:var(--mono);font-size:7.5px;letter-spacing:.13em;color:rgba(123,159,190,.35);text-transform:uppercase;line-height:1.8;margin-top:28px;padding-top:24px;border-top:.5px solid var(--rule)}
+
+.msg{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;padding:16px;margin-top:16px;display:none}
+.msg.success{color:#6a9060;border:.5px solid #6a9060}
+.msg.error{color:#906060;border:.5px solid #906060}
+.msg.info{color:var(--signal);border:.5px solid var(--rule)}
+
+.spinner-wrap{text-align:center;padding:32px 0;display:none}
+.spinner{width:20px;height:20px;border:1.5px solid var(--rule);border-top-color:var(--signal);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.back-link{font-family:var(--mono);font-size:8px;letter-spacing:.16em;color:rgba(123,159,190,.35);text-transform:uppercase;text-decoration:none;margin-top:32px;transition:color .2s}
+.back-link:hover{color:var(--signal)}
+</style>
+</head>
+<body>
+
+<a href="/" class="logo">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <line x1="12" y1="1"  x2="12" y2="8"  stroke="#E8F4FF" stroke-width="1.4" stroke-linecap="square"/>
+    <line x1="12" y1="16" x2="12" y2="23" stroke="#E8F4FF" stroke-width="1.4" stroke-linecap="square"/>
+    <line x1="1"  y1="12" x2="8"  y2="12" stroke="#E8F4FF" stroke-width="1.4" stroke-linecap="square"/>
+    <line x1="16" y1="12" x2="23" y2="12" stroke="#E8F4FF" stroke-width="1.4" stroke-linecap="square"/>
+    <circle cx="12" cy="12" r="2.2" fill="#7B9FBE"/>
+  </svg>
+  <div>
+    <span class="logo-wm">ULTIMA</span>
+    <span class="logo-attr">THE · METHOD</span>
+  </div>
+</a>
+
+<div class="card">
+  <!-- STEP 1: Search -->
+  <div id="step-search">
+    <div class="card-eyebrow">Cancellation</div>
+    <h1 class="card-title">Cancel your<br>booking.</h1>
+    <div class="card-rule"></div>
+    <p class="card-body">Enter the email address you used to book your session. Sessions can be cancelled up to 24 hours before they begin for a full refund.</p>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="searchEmail" placeholder="your@email.com" onkeydown="if(event.key==='Enter')searchBookings()"/>
+    </div>
+    <button class="search-btn" id="searchBtn" onclick="searchBookings()">Find my bookings</button>
+    <div class="msg" id="searchMsg"></div>
+  </div>
+
+  <!-- STEP 2: Bookings -->
+  <div id="step-bookings" style="display:none">
+    <div class="card-eyebrow">Your Bookings</div>
+    <h2 style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--white);margin-bottom:12px">Select a session<br>to cancel.</h2>
+    <div class="card-rule"></div>
+    <div class="bookings-list" id="bookingsList"></div>
+    <div class="policy-note">
+      Cancellations accepted up to 24 hours before session start.<br>
+      Refunds are processed automatically to your original payment method.<br>
+      Please allow 5–10 business days for the refund to appear.
+    </div>
+    <div class="msg" id="cancelMsg"></div>
+  </div>
+
+  <div class="spinner-wrap" id="spinnerWrap">
+    <div class="spinner"></div>
+  </div>
+</div>
+
+<a href="/" class="back-link">← Back to Ultima</a>
+
+<script>
+let userBookings = [];
+let userEmail = '';
+
+async function searchBookings() {
+  const email = document.getElementById('searchEmail').value.trim().toLowerCase();
+  if (!email) return;
+  userEmail = email;
+
+  setLoading(true);
+  const msg = document.getElementById('searchMsg');
+  msg.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/get-data?type=bookings-by-email&email=' + encodeURIComponent(email));
+    
+    // Since we don't have a specific endpoint, fetch all and filter client-side
+    // This works because bookings are filtered by email
+    const allRes = await fetch('/api/get-data?type=bookings', {
+      headers: { 'x-booking-email': email }
+    });
+    
+    let bookings = [];
+    if (allRes.ok) {
+      const data = await allRes.json();
+      if (Array.isArray(data)) {
+        bookings = data.filter(b => b.customerEmail && b.customerEmail.toLowerCase() === email);
+      }
+    }
+
+    userBookings = bookings;
+
+    if (!bookings.length) {
+      msg.textContent = 'No bookings found for this email address.';
+      msg.className = 'msg info';
+      msg.style.display = 'block';
+      setLoading(false);
+      return;
+    }
+
+    renderBookings(bookings);
+    document.getElementById('step-search').style.display = 'none';
+    document.getElementById('step-bookings').style.display = 'block';
+
+  } catch(e) {
+    msg.textContent = 'Could not retrieve bookings. Please try again.';
+    msg.className = 'msg error';
+    msg.style.display = 'block';
+  }
+
+  setLoading(false);
+}
+
+function renderBookings(bookings) {
+  const list = document.getElementById('bookingsList');
+  list.innerHTML = bookings.map(b => {
+    const sessionDate = b.sessionTime ? new Date(b.sessionTime) : null;
+    const now = new Date();
+    const hoursLeft = sessionDate ? (sessionDate - now) / (1000 * 60 * 60) : null;
+    const canCancel = b.status === 'confirmed' && hoursLeft !== null && hoursLeft > 24;
+    const isPast = hoursLeft !== null && hoursLeft < 0;
+
+    return `<div class="booking-item">
+      <div class="booking-session">${b.sessionName || '—'}</div>
+      <div class="booking-meta">${b.sessionDay || ''} ${b.sessionTime ? '· ' + formatDateTime(b.sessionTime) : ''}</div>
+      <div class="booking-meta">Booked: ${formatDate(b.bookedAt)}</div>
+      <div style="margin-top:8px"><span class="booking-status ${b.status}">${b.status}</span></div>
+      ${canCancel
+        ? `<button class="cancel-btn" onclick="confirmCancel('${b.id}','${b.paymentIntentId}','${b.sessionTime}','${b.sessionName}')">Cancel & Refund this session</button>`
+        : b.status === 'confirmed' && !isPast
+          ? `<button class="cancel-btn" disabled>Outside cancellation window (within 24 hours)</button>`
+          : b.status === 'confirmed' && isPast
+            ? `<button class="cancel-btn" disabled>Session has passed</button>`
+            : ''
+      }
+    </div>`;
+  }).join('');
+}
+
+async function confirmCancel(bookingId, paymentIntentId, sessionTime, sessionName) {
+  if (!confirm(`Cancel "${sessionName}" and receive a full refund of HKD 280?`)) return;
+
+  setLoading(true);
+  const msg = document.getElementById('cancelMsg');
+  msg.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/cancel-booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bookingId, paymentIntentId, sessionTime })
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      msg.textContent = data.message || data.error;
+      msg.className = 'msg error';
+      msg.style.display = 'block';
+    } else {
+      userBookings = userBookings.map(b => b.id === bookingId ? { ...b, status: 'refunded' } : b);
+      renderBookings(userBookings);
+      msg.textContent = 'Booking cancelled. Your refund of HKD 280 will appear in 5–10 business days.';
+      msg.className = 'msg success';
+      msg.style.display = 'block';
+    }
+  } catch(e) {
+    msg.textContent = 'Something went wrong. Please contact info@ultimamethod.com';
+    msg.className = 'msg error';
+    msg.style.display = 'block';
+  }
+
+  setLoading(false);
+}
+
+function setLoading(on) {
+  document.getElementById('spinnerWrap').style.display = on ? 'block' : 'none';
+  const btn = document.getElementById('searchBtn');
+  if (btn) btn.disabled = on;
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function formatDateTime(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+</script>
+</body>
+</html>

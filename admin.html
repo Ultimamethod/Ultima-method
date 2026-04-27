@@ -449,7 +449,7 @@ async function loadAll() {
 /* ── SESSIONS ── */
 async function loadSessions() {
   try {
-    const res = await fetch('/.netlify/functions/get-data?type=schedule');
+    const res = await fetch('/api/get-data?type=schedule');
     sessions = await res.json();
   } catch(e) { sessions = []; }
   renderSessions();
@@ -536,7 +536,7 @@ async function deleteSession(id) {
 /* ── COACHES ── */
 async function loadCoaches() {
   try {
-    const res = await fetch('/.netlify/functions/get-data?type=coaches');
+    const res = await fetch('/api/get-data?type=coaches');
     coaches = await res.json();
   } catch(e) { coaches = []; }
   renderCoaches();
@@ -625,7 +625,7 @@ function toBase64(file) {
 /* ── APPLICATIONS ── */
 async function loadApplications() {
   try {
-    const res = await fetch('/.netlify/functions/get-data?type=applications', {
+    const res = await fetch('/api/get-data?type=applications', {
       headers: { 'x-admin-password': adminPassword }
     });
     applications = await res.json();
@@ -691,7 +691,7 @@ function viewApplication(id) {
 }
 
 async function updateAppStatus(id, status) {
-  await fetch('/.netlify/functions/save-data', {
+  await fetch('/api/save-data', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
     body: JSON.stringify({ type: 'application-status', data: { id, status } })
@@ -724,7 +724,7 @@ function updateDashboard() {
 /* ── SERVER ── */
 async function saveToServer(type, data) {
   try {
-    await fetch('/.netlify/functions/save-data', {
+    await fetch('/api/save-data', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
       body: JSON.stringify({ type, data })
