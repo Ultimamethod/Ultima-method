@@ -4,29 +4,27 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Ultima · The Method — Engineered for the Exceptional</title>
-<meta name="description" content="Ultima · The Method. Engineered for the exceptional. Application-only membership. Precision coaching. Structured progression."/>
+<meta name="description" content="Ultima · The Method. Engineered for the exceptional. Precision coaching. Structured progression. Hong Kong."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet"/>
-<script src="https://js.stripe.com/v3/"></script>
 <style>
-/* ── tokens ── */
 :root {
-  --void:    #0A0F1E;
-  --deep:    #0D1A2E;
-  --night:   #132238;
-  --steel:   #1E3A5F;
-  --rule:    #243D5C;
-  --signal:  #7B9FBE;
-  --ice:     #C8DCF0;
-  --white:   #E8F4FF;
-  --serif:   'Cormorant Garamond', Georgia, serif;
-  --sans:    'DM Sans', sans-serif;
-  --mono:    'Space Mono', monospace;
-  --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+  --void:   #0A0F1E;
+  --deep:   #0D1A2E;
+  --night:  #132238;
+  --steel:  #1E3A5F;
+  --rule:   #243D5C;
+  --signal: #7B9FBE;
+  --ice:    #C8DCF0;
+  --white:  #E8F4FF;
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+  --mono:   'Space Mono', monospace;
+  --ease:   cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -44,18 +42,17 @@ body {
 ::-webkit-scrollbar-track { background: var(--void); }
 ::-webkit-scrollbar-thumb { background: var(--rule); }
 
-/* grain overlay */
 body::before {
   content: '';
   position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: .28;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
-/* ── pages ── */
+/* ── PAGES ── */
 .page { display: none; }
 .page.active { display: block; }
 
-/* ── nav ── */
+/* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 800;
   display: flex; align-items: center; justify-content: space-between;
@@ -99,57 +96,45 @@ nav.scrolled {
 .nav-links a:hover { color: var(--white); }
 .nav-links a:hover::after { width: 100%; }
 
-.nav-apply {
+.nav-book {
   font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--void); background: var(--white);
   padding: 10px 24px; text-decoration: none; cursor: pointer; transition: background .2s;
 }
-.nav-apply:hover { background: var(--signal); }
+.nav-book:hover { background: var(--signal); }
 
-/* burger */
-.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.nav-burger {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px;
+}
 .nav-burger span { display: block; width: 22px; height: .7px; background: var(--signal); }
 
-/* ── container ── */
+/* ── LAYOUT ── */
 .container { max-width: 1180px; margin: 0 auto; padding: 0 48px; }
-.container-narrow { max-width: 720px; margin: 0 auto; padding: 0 48px; }
 
-/* ── type helpers ── */
-.mono {
-  font-family: var(--mono); font-size: 9px; letter-spacing: .24em;
-  color: var(--signal); text-transform: uppercase;
-}
+/* ── TYPE ── */
+.mono { font-family: var(--mono); font-size: 9px; letter-spacing: .24em; color: var(--signal); text-transform: uppercase; }
 .mono-dim { color: rgba(123,159,190,.4); }
-
-h1, h2, h3 {
-  font-family: var(--serif); font-weight: 300; line-height: 1; color: var(--white);
-}
+h1,h2,h3 { font-family: var(--serif); font-weight: 300; line-height: 1; color: var(--white); }
 h1 { font-size: clamp(52px, 7vw, 110px); }
 h2 { font-size: clamp(40px, 5vw, 72px); }
 h3 { font-size: clamp(22px, 2.5vw, 32px); }
-
 em { font-style: italic; color: var(--ice); }
-
 p { color: var(--signal); line-height: 1.85; font-size: .92rem; }
 p strong { color: var(--white); font-weight: 400; }
-
-.section-rule {
-  width: 40px; height: .5px; background: var(--rule); margin: 24px 0;
-}
-
+.section-rule { width: 40px; height: .5px; background: var(--rule); margin: 24px 0; }
 .lead { font-size: 1rem; color: rgba(200,220,240,.65); }
+.divider { width: 100%; height: .5px; background: linear-gradient(to right, transparent, var(--rule) 20%, var(--rule) 80%, transparent); opacity: .4; }
 
-/* ── buttons ── */
+/* ── BUTTONS ── */
 .btn-primary {
   display: inline-block; font-family: var(--mono); font-size: 9px;
   letter-spacing: .22em; text-transform: uppercase;
   color: var(--void); background: var(--white);
   padding: 14px 36px; text-decoration: none; cursor: pointer; border: none;
-  transition: background .2s; font-size: 9px;
+  transition: background .2s;
 }
 .btn-primary:hover { background: var(--signal); }
 .btn-large { padding: 17px 44px; font-size: 10px; }
-
 .btn-ghost {
   font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--signal); text-decoration: none; cursor: pointer; background: none; border: none;
@@ -157,7 +142,7 @@ p strong { color: var(--white); font-weight: 400; }
 }
 .btn-ghost:hover { color: var(--white); }
 
-/* ── animations ── */
+/* ── ANIMATIONS ── */
 .animate { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .animate.in { opacity: 1; transform: none; }
 .delay-1 { transition-delay: .12s; }
@@ -165,63 +150,37 @@ p strong { color: var(--white); font-weight: 400; }
 .delay-3 { transition-delay: .36s; }
 .delay-4 { transition-delay: .48s; }
 
-/* ═══════════════════════════════════════════════
-   HOME PAGE
-═══════════════════════════════════════════════ */
-
-/* hero */
+/* ── HERO ── */
 .hero {
   min-height: 100vh;
   display: grid; grid-template-columns: 1fr 1fr;
   background: var(--void); overflow: hidden; position: relative;
 }
-
-/* subtle bg grid */
 .hero::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background-image:
     linear-gradient(rgba(36,61,92,.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(36,61,92,.07) 1px, transparent 1px);
-  background-size: 72px 72px;
-  pointer-events: none;
+  background-size: 72px 72px; pointer-events: none;
 }
-
 .hero-left {
   display: flex; flex-direction: column; justify-content: space-between;
   padding: 148px 56px 60px 48px;
   border-right: .5px solid rgba(36,61,92,.35);
   position: relative; z-index: 1;
 }
-
-.hero-eyebrow { margin-bottom: 32px; }
-
 .hero-headline { margin-bottom: 0; }
-
-.hero-rule {
-  width: 36px; height: .5px; background: var(--rule); margin: 32px 0;
-}
-
-.hero-body {
-  font-size: .92rem; line-height: 1.8; color: rgba(200,220,240,.6); margin-bottom: 0;
-}
-
+.hero-rule { width: 36px; height: .5px; background: var(--rule); margin: 32px 0; }
+.hero-body { font-size: .92rem; line-height: 1.8; color: rgba(200,220,240,.6); }
 .hero-cta { display: flex; align-items: center; gap: 28px; margin-top: 44px; }
-
 .hero-bottom { margin-top: auto; padding-top: 48px; }
 
-/* hero right */
 .hero-right {
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   gap: 56px; padding: 140px 48px 60px; position: relative; z-index: 1;
 }
-
-.hero-crosshair-wrap {
-  position: relative; width: 200px; height: 200px;
-}
+.hero-crosshair-wrap { position: relative; width: 200px; height: 200px; }
 .hero-crosshair { width: 100%; height: 100%; }
-
-/* pulse rings */
 .hero-crosshair-wrap::before,
 .hero-crosshair-wrap::after {
   content: ''; position: absolute; top: 50%; left: 50%;
@@ -231,7 +190,6 @@ p strong { color: var(--white); font-weight: 400; }
 }
 .hero-crosshair-wrap::before { width: 300px; height: 300px; animation-delay: 0s; }
 .hero-crosshair-wrap::after  { width: 460px; height: 460px; animation-delay: 3.5s; }
-
 @keyframes pulse {
   0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); }
   50%      { opacity: .05; transform: translate(-50%,-50%) scale(1.04); }
@@ -240,191 +198,62 @@ p strong { color: var(--white); font-weight: 400; }
 .hero-stats { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 280px; }
 .stat-item { padding: 20px 0; }
 .stat-divider { height: .5px; background: var(--rule); opacity: .5; }
-.stat-number {
-  font-family: var(--serif); font-size: 44px; font-weight: 300;
-  color: var(--white); line-height: 1; margin-bottom: 4px;
-}
+.stat-number { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 4px; }
 .stat-label { font-family: var(--mono); font-size: 8px; letter-spacing: .18em; color: var(--signal); text-transform: uppercase; }
 
-/* about section */
+/* ── ABOUT ── */
 .about { background: var(--deep); padding: 100px 0; border-top: .5px solid var(--night); }
-
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 80px;
-}
-.section-header {}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 80px; }
 .section-header .mono { display: block; margin-bottom: 20px; }
-.section-header h2 { margin-bottom: 0; }
-.section-header .lead { margin-top: 24px; }
-
-.about-text { padding-top: 8px; }
-.about-text p + p { margin-top: 14px; }
-
-.about-values {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 0; border-top: .5px solid var(--rule);
-}
-.value-item {
-  display: flex; gap: 16px; padding: 32px 28px 32px 0;
-  border-right: .5px solid var(--rule);
-}
+.about-values { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: .5px solid var(--rule); }
+.value-item { display: flex; gap: 16px; padding: 32px 28px 32px 0; border-right: .5px solid var(--rule); }
 .value-item:last-child { border-right: none; padding-right: 0; }
-.value-num {
-  font-family: var(--mono); font-size: 9px; letter-spacing: .14em;
-  color: rgba(123,159,190,.35); flex-shrink: 0; padding-top: 2px;
-}
-.value-title {
-  font-family: var(--mono); font-size: 8.5px; letter-spacing: .14em;
-  color: var(--white); text-transform: uppercase; margin-bottom: 10px;
-}
+.value-num { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: rgba(123,159,190,.35); flex-shrink: 0; padding-top: 2px; }
+.value-title { font-family: var(--mono); font-size: 8.5px; letter-spacing: .14em; color: var(--white); text-transform: uppercase; margin-bottom: 10px; }
 .value-body { font-size: .82rem; color: rgba(123,159,190,.65); line-height: 1.7; }
 
-/* program section */
+/* ── PROGRAM ── */
 .program { background: var(--void); padding: 100px 0; border-top: .5px solid var(--night); }
+.program-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; background: var(--rule); margin-top: 64px; }
+.program-card { background: var(--void); padding: 44px 36px; transition: background .2s; }
+.program-card:hover { background: var(--deep); }
+.program-phase { font-family: var(--mono); font-size: 8px; letter-spacing: .22em; color: var(--signal); text-transform: uppercase; margin-bottom: 20px; }
+.program-title { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--white); line-height: 1; }
+.program-rule { width: 28px; height: .5px; background: var(--rule); margin: 20px 0; }
+.program-body { font-size: .84rem; color: rgba(123,159,190,.6); line-height: 1.8; }
 
-.program-intro {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-  align-items: start; margin-bottom: 72px;
-}
-.program-intro-text {}
-.program-meta {
-  margin-top: 32px; padding-top: 24px; border-top: .5px solid var(--rule);
-}
-
-/* class format list */
-.program-classes { display: flex; flex-direction: column; }
-.class-format {
-  display: flex; align-items: flex-start; gap: 28px;
-  padding: 28px 0; border-bottom: .5px solid var(--rule);
-  transition: padding .3s var(--ease);
-}
-.class-format:first-child { border-top: .5px solid var(--rule); }
-.class-format:hover { padding-left: 12px; }
-.cf-num {
-  font-family: var(--mono); font-size: 8px; letter-spacing: .16em;
-  color: rgba(123,159,190,.35); flex-shrink: 0; padding-top: 3px; min-width: 24px;
-}
-.cf-name {
-  font-family: var(--serif); font-size: clamp(20px, 2.2vw, 28px);
-  font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 8px;
-}
-.cf-desc { font-size: .84rem; color: rgba(123,159,190,.58); line-height: 1.75; }
-
-/* cta band */
-.cta-band {
-  background: var(--deep); padding: 80px 0;
-  border-top: .5px solid var(--night); border-bottom: .5px solid var(--night);
-}
-.cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-.cta-headline {
-  font-family: var(--serif); font-size: clamp(32px, 4vw, 52px); font-weight: 300;
-  color: var(--white); line-height: 1; margin-bottom: 12px;
-}
-.cta-sub { font-family: var(--mono); font-size: 8px; letter-spacing: .18em; color: var(--signal); text-transform: uppercase; }
-
-/* schedule section */
-.schedule { background: var(--void); padding: 100px 0; border-top: .5px solid var(--night); }
-
-.sched-filter { display: flex; gap: 2px; margin-top: 40px; margin-bottom: 48px; }
-.fbtn {
-  font-family: var(--mono); font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--signal); background: transparent; border: .5px solid var(--rule);
-  padding: 9px 16px; cursor: pointer; transition: all .2s;
-}
-.fbtn.on, .fbtn:hover { background: var(--white); color: var(--void); border-color: var(--white); }
-
-.class-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 0; background: var(--rule);
-}
-.class-card {
-  background: var(--void); padding: 36px 32px; cursor: pointer; transition: background .2s;
-}
-.class-card:hover { background: var(--deep); }
-.cc-day {
-  font-family: var(--mono); font-size: 8px; letter-spacing: .18em;
-  color: var(--signal); text-transform: uppercase; margin-bottom: 16px;
-}
-.cc-time {
-  font-family: var(--serif); font-size: 44px; font-weight: 300;
-  color: var(--white); line-height: 1; margin-bottom: 6px;
-}
-.cc-name {
-  font-family: var(--mono); font-size: 8px; letter-spacing: .16em;
-  color: var(--ice); text-transform: uppercase; margin-bottom: 10px;
-}
+/* ── SCHEDULE ── */
+.schedule { background: var(--deep); padding: 100px 0; border-top: .5px solid var(--night); }
+.class-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; background: var(--rule); margin-top: 48px; }
+.class-card { background: var(--void); padding: 40px 36px; transition: background .2s; }
+.class-card:hover { background: var(--night); }
+.cc-day { font-family: var(--mono); font-size: 8px; letter-spacing: .18em; color: var(--signal); text-transform: uppercase; margin-bottom: 16px; }
+.cc-time { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 6px; }
+.cc-name { font-family: var(--mono); font-size: 8px; letter-spacing: .16em; color: var(--ice); text-transform: uppercase; margin-bottom: 10px; }
 .cc-coach { font-size: .82rem; color: rgba(123,159,190,.4); margin-bottom: 18px; }
-.cc-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 20px; }
-.cc-tag {
-  font-family: var(--mono); font-size: 7px; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--signal); border: .5px solid var(--rule); padding: 3px 9px;
-}
-.cc-spots {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .12em;
-  color: rgba(123,159,190,.38); text-transform: uppercase; margin-bottom: 20px;
-}
+.cc-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 24px; }
+.cc-tag { font-family: var(--mono); font-size: 7px; letter-spacing: .1em; text-transform: uppercase; color: var(--signal); border: .5px solid var(--rule); padding: 3px 9px; }
+.cc-spots { font-family: var(--mono); font-size: 7.5px; letter-spacing: .12em; color: rgba(123,159,190,.38); text-transform: uppercase; margin-bottom: 24px; }
 .cc-spots.low { color: #906060; }
-.book-btn {
+.book-session-btn {
   display: block; width: 100%;
   font-family: var(--mono); font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--void); background: var(--white); border: none; padding: 13px; cursor: pointer;
-  transition: background .2s;
+  color: var(--void); background: var(--white); border: none; padding: 13px;
+  cursor: pointer; text-decoration: none; text-align: center; transition: background .2s;
 }
-.book-btn:hover { background: var(--signal); }
+.book-session-btn:hover { background: var(--signal); }
 
-/* ═══════════════════════════════════════════════
-   APPLY PAGE
-═══════════════════════════════════════════════ */
-.apply-section {
-  background: var(--void); padding-top: 140px; padding-bottom: 100px; min-height: 100vh;
-}
-.apply-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-.apply-headline {
-  font-family: var(--serif); font-size: clamp(40px, 5vw, 68px);
-  font-weight: 300; line-height: 1; color: var(--white); margin-bottom: 0;
-}
-.apply-requirements { margin-top: 40px; }
-.apply-req-title { display: block; margin-bottom: 16px; }
-.req-item {
-  padding: 14px 0; border-bottom: .5px solid var(--rule);
-  font-size: .84rem; color: rgba(123,159,190,.65);
-}
-.req-item:first-of-type { border-top: .5px solid var(--rule); }
+/* ── CTA BAND ── */
+.cta-band { background: var(--deep); padding: 80px 0; border-top: .5px solid var(--night); border-bottom: .5px solid var(--night); }
+.cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.cta-headline { font-family: var(--serif); font-size: clamp(32px,4vw,52px); font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 12px; }
+.cta-sub { font-family: var(--mono); font-size: 8px; letter-spacing: .18em; color: var(--signal); text-transform: uppercase; }
 
-/* ═══════════════════════════════════════════════
-   ABOUT PAGE
-═══════════════════════════════════════════════ */
-.about-page-hero {
-  background: var(--void); padding: 160px 0 80px; border-bottom: .5px solid var(--night);
-}
-.about-hero-headline {
-  font-family: var(--serif); font-size: clamp(48px, 6.5vw, 96px);
-  font-weight: 300; line-height: 1; color: var(--white);
-}
+/* ── ABOUT PAGE ── */
+.about-page-hero { background: var(--void); padding: 160px 0 80px; border-bottom: .5px solid var(--night); }
 .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
-.philosophy-block { padding: 0; }
-.philosophy-block h3 { margin-bottom: 0; }
-.philosophy-block p + p { margin-top: 14px; }
-.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
-.team-card { padding: 32px; border: .5px solid var(--rule); transition: border-color .2s; }
-.team-card:hover { border-color: var(--signal); }
-.team-initial {
-  font-family: var(--serif); font-size: 48px; font-weight: 300;
-  color: var(--signal); line-height: 1; margin-bottom: 16px;
-}
-.team-name {
-  font-family: var(--mono); font-size: 9px; letter-spacing: .16em;
-  color: var(--white); text-transform: uppercase; margin-bottom: 4px;
-}
-.team-role {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .14em;
-  color: var(--signal); text-transform: uppercase; margin-bottom: 16px;
-}
-.team-bio { font-size: .82rem; color: rgba(123,159,190,.6); line-height: 1.75; }
 
-/* ═══════════════════════════════════════════════
-   CONTACT PAGE
-═══════════════════════════════════════════════ */
+/* ── CONTACT ── */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; }
 .contact-info-block { margin-bottom: 32px; }
 .contact-info-block .mono { display: block; margin-bottom: 8px; }
@@ -434,14 +263,9 @@ p strong { color: var(--white); font-weight: 400; }
 }
 .contact-info-block a:hover { color: var(--signal); }
 
-/* ═══════════════════════════════════════════════
-   FORMS (shared)
-═══════════════════════════════════════════════ */
+/* CONTACT FORM */
 .form-group { margin-bottom: 20px; }
-.form-group label {
-  display: block; font-family: var(--mono); font-size: 8px; letter-spacing: .18em;
-  color: var(--signal); text-transform: uppercase; margin-bottom: 10px;
-}
+.form-group label { display: block; font-family: var(--mono); font-size: 8px; letter-spacing: .18em; color: var(--signal); text-transform: uppercase; margin-bottom: 10px; }
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -450,154 +274,54 @@ p strong { color: var(--white); font-weight: 400; }
   padding: 13px 15px; outline: none; transition: border-color .2s;
   appearance: none; -webkit-appearance: none;
 }
-.form-group select { cursor: pointer; }
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus { border-color: var(--signal); }
-.form-group input::placeholder,
-.form-group textarea::placeholder { color: rgba(123,159,190,.3); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(123,159,190,.3); }
 .form-group textarea { resize: none; font-family: var(--sans); }
-
-.form-submit { display: flex; align-items: center; gap: 24px; margin-top: 8px; }
-.form-note { font-size: 7px; letter-spacing: .12em; color: rgba(123,159,190,.4); text-transform: uppercase; }
-
-/* apply form specific */
-.apply-form, .contact-form { display: flex; flex-direction: column; }
-
-/* ═══════════════════════════════════════════════
-   MODAL
-═══════════════════════════════════════════════ */
-.overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(10,15,30,.95); backdrop-filter: blur(18px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity .3s;
+.c-submit {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--void); background: var(--white); border: none; padding: 15px 36px;
+  cursor: pointer; transition: background .2s;
 }
-.overlay.open { opacity: 1; pointer-events: all; }
-.modal {
-  background: var(--deep); border: .5px solid var(--rule);
-  width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto;
-  transform: translateY(16px); transition: transform .4s var(--ease);
-}
-.overlay.open .modal { transform: none; }
-.modal-hd {
-  padding: 36px 44px 28px; border-bottom: .5px solid var(--rule);
-  display: flex; justify-content: space-between; align-items: flex-start;
-}
-.modal-title {
-  font-family: var(--serif); font-size: 30px; font-weight: 300; color: var(--white);
-}
-.modal-sub {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .18em;
-  color: var(--signal); text-transform: uppercase; margin-top: 6px;
-}
-.modal-x {
-  background: none; border: none; color: var(--signal); cursor: pointer;
-  font-size: 16px; padding: 4px; transition: color .2s;
-}
-.modal-x:hover { color: var(--white); }
-.modal-bd { padding: 36px 44px; }
-.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.stripe-wrap {
-  background: var(--void); border: .5px solid var(--rule);
-  padding: 13px 15px; margin-bottom: 18px; transition: border-color .2s;
-}
-.stripe-wrap.focused { border-color: var(--signal); }
-.stripe-note {
-  font-family: var(--mono); font-size: 7px; letter-spacing: .13em;
-  color: rgba(123,159,190,.35); text-transform: uppercase; margin-bottom: 26px;
-}
-.pay-err {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .13em;
-  color: #906060; text-transform: uppercase; margin-bottom: 12px; display: none;
-}
-.pay-btn {
-  width: 100%; font-family: var(--mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--void); background: var(--white); border: none; padding: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 10px; transition: background .2s;
-}
-.pay-btn:hover { background: var(--signal); }
-.pay-btn:disabled { opacity: .4; cursor: not-allowed; }
-.spinner {
-  width: 13px; height: 13px;
-  border: 1.5px solid rgba(10,15,30,.3); border-top-color: var(--void);
-  border-radius: 50%; animation: spin .7s linear infinite; display: none;
-}
-.pay-btn.loading .spinner { display: block; }
-.pay-btn.loading .pay-txt { display: none; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.success-wrap { text-align: center; padding: 56px 44px; display: none; }
-.success-title {
-  font-family: var(--serif); font-size: 34px; font-weight: 300; color: var(--white); margin: 20px 0 10px;
-}
-.success-sub {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .18em; color: var(--signal); text-transform: uppercase;
+.c-submit:hover { background: var(--signal); }
+.c-success {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .2em; color: var(--signal);
+  text-transform: uppercase; padding: 20px; border: .5px solid var(--rule); display: none; margin-top: 16px;
 }
 
-/* ═══════════════════════════════════════════════
-   MERCHANDISE PAGE
-═══════════════════════════════════════════════ */
+/* ── MERCHANDISE ── */
 .merch-section {
   background: var(--void); min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; padding: 140px 48px 80px; position: relative;
 }
 .merch-bg-txt {
-  position: absolute;
-  font-family: var(--serif); font-size: clamp(100px, 18vw, 260px);
-  font-weight: 300; color: rgba(36,61,92,.12);
-  letter-spacing: .08em; pointer-events: none; user-select: none; white-space: nowrap;
+  position: absolute; font-family: var(--serif); font-size: clamp(100px,18vw,260px);
+  font-weight: 300; color: rgba(36,61,92,.12); letter-spacing: .08em;
+  pointer-events: none; user-select: none; white-space: nowrap;
 }
 .merch-icon { margin-bottom: 28px; opacity: .5; position: relative; z-index: 1; }
-.merch-eyebrow { margin-bottom: 20px; position: relative; z-index: 1; }
-.merch-headline {
-  font-family: var(--serif); font-size: clamp(44px, 5.5vw, 80px);
-  font-weight: 300; color: var(--white); line-height: 1;
-  margin-bottom: 22px; position: relative; z-index: 1;
-}
-.merch-body {
-  max-width: 400px; font-size: .88rem; color: rgba(123,159,190,.5);
-  line-height: 1.85; margin-bottom: 40px; position: relative; z-index: 1;
-}
+.merch-headline { font-family: var(--serif); font-size: clamp(44px,5.5vw,80px); font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 22px; position: relative; z-index: 1; }
+.merch-body { max-width: 400px; font-size: .88rem; color: rgba(123,159,190,.5); line-height: 1.85; margin-bottom: 40px; position: relative; z-index: 1; }
+.merch-eyebrow { font-family: var(--mono); font-size: 9px; letter-spacing: .3em; color: var(--signal); text-transform: uppercase; margin-bottom: 20px; position: relative; z-index: 1; }
 .merch-form { display: flex; max-width: 360px; width: 100%; position: relative; z-index: 1; }
-.merch-input {
-  flex: 1; background: var(--deep); border: .5px solid var(--rule); border-right: none;
-  color: var(--white); font-family: var(--sans); font-weight: 300; font-size: 13px;
-  padding: 13px 15px; outline: none; transition: border-color .2s;
-}
+.merch-input { flex: 1; background: var(--deep); border: .5px solid var(--rule); border-right: none; color: var(--white); font-family: var(--sans); font-weight: 300; font-size: 13px; padding: 13px 15px; outline: none; transition: border-color .2s; }
 .merch-input:focus { border-color: var(--signal); }
 .merch-input::placeholder { color: rgba(123,159,190,.25); }
-.merch-submit {
-  font-family: var(--mono); font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--void); background: var(--white); border: none; padding: 13px 20px;
-  cursor: pointer; white-space: nowrap; transition: background .2s;
-}
+.merch-submit { font-family: var(--mono); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--void); background: var(--white); border: none; padding: 13px 20px; cursor: pointer; white-space: nowrap; transition: background .2s; }
 .merch-submit:hover { background: var(--signal); }
 
-/* ═══════════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════════ */
+/* ── FOOTER ── */
 footer { background: var(--void); border-top: .5px solid var(--rule); padding: 36px 0; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; }
-.footer-logo-lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.footer-wm {
-  font-family: var(--serif); font-weight: 300; font-size: 16px;
-  color: rgba(232,244,255,.4); letter-spacing: .08em;
-}
-.footer-mono {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .14em;
-  color: rgba(123,159,190,.28); text-transform: uppercase;
-}
+.footer-wm { font-family: var(--serif); font-weight: 300; font-size: 16px; color: rgba(232,244,255,.4); letter-spacing: .08em; }
+.footer-mono { font-family: var(--mono); font-size: 7.5px; letter-spacing: .14em; color: rgba(123,159,190,.28); text-transform: uppercase; }
 .footer-links { display: flex; gap: 24px; }
-.footer-links a {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .14em;
-  color: rgba(123,159,190,.3); text-transform: uppercase; text-decoration: none;
-  cursor: pointer; transition: color .2s;
-}
+.footer-links a { font-family: var(--mono); font-size: 7.5px; letter-spacing: .14em; color: rgba(123,159,190,.3); text-transform: uppercase; text-decoration: none; cursor: pointer; transition: color .2s; }
 .footer-links a:hover { color: var(--signal); }
 
-/* ── responsive ── */
+/* ── RESPONSIVE ── */
 @media (max-width: 960px) {
   nav, nav.scrolled { padding: 18px 24px; }
   .nav-links { display: none; }
@@ -609,81 +333,24 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
   }
   .nav-links.open a { padding: 18px 0; border-bottom: .5px solid var(--rule); }
   .nav-burger { display: flex; z-index: 900; position: relative; }
-  .container, .container-narrow { padding: 0 24px; }
+  .container { padding: 0 24px; }
   .hero { grid-template-columns: 1fr; }
   .hero-left { padding: 130px 24px 52px; border-right: none; border-bottom: .5px solid var(--rule); }
   .hero-right { padding: 52px 24px; }
-  .hero-crosshair-wrap::before { width: 220px; height: 220px; }
-  .hero-crosshair-wrap::after  { display: none; }
-  .about-grid, .apply-grid, .contact-grid, .philosophy-grid, .program-intro { grid-template-columns: 1fr; gap: 40px; }
+  .hero-crosshair-wrap::after { display: none; }
+  .about-grid, .contact-grid, .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-values { grid-template-columns: 1fr 1fr; }
   .value-item:nth-child(even) { border-right: none; }
-  .program-grid, .team-grid { grid-template-columns: 1fr; }
-  .class-grid { grid-template-columns: 1fr; }
+  .program-grid, .class-grid { grid-template-columns: 1fr; }
   .cta-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
   footer .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
   .merch-section { padding: 130px 24px 60px; }
-  .apply-section { padding-top: 120px; }
-}
-/* ═══════════════════════════════════════════════
-   COACH PAGE
-═══════════════════════════════════════════════ */
-.coach-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: var(--rule);
-}
-
-.coach-card {
-  background: var(--deep);
-  display: flex; flex-direction: column;
-  transition: background .2s;
-}
-.coach-card:hover { background: var(--night); }
-
-.coach-photo-wrap { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; }
-
-.coach-photo-label {
-  display: block; width: 100%; height: 100%; cursor: pointer; position: relative;
-}
-
-.coach-photo-placeholder {
-  width: 100%; height: 100%;
-  background: var(--void);
-  border-bottom: .5px solid var(--rule);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 12px; transition: background .2s;
-}
-.coach-photo-placeholder:hover { background: var(--night); }
-.coach-photo-placeholder span {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .2em;
-  color: var(--signal); text-transform: uppercase;
-}
-
-.coach-photo-img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: top;
-}
-
-.coach-info { padding: 32px 28px 36px; flex: 1; }
-
-.coach-name {
-  font-family: var(--serif); font-size: 26px; font-weight: 300;
-  color: var(--white); line-height: 1; margin-bottom: 6px;
-}
-.coach-role {
-  font-family: var(--mono); font-size: 7.5px; letter-spacing: .18em;
-  color: var(--signal); text-transform: uppercase;
-}
-.coach-bio { font-size: .84rem; color: rgba(123,159,190,.6); line-height: 1.8; }
-
-@media (max-width: 960px) {
-  .coach-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
+<!-- ── NAV ── -->
 <nav id="nav">
   <a class="nav-logo" onclick="showPage('home')">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -698,7 +365,6 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
       <span class="nav-attr">THE · METHOD</span>
     </div>
   </a>
-
   <ul class="nav-links" id="navLinks">
     <li><a onclick="showPage('home');closeMenu()">The Method</a></li>
     <li><a onclick="showPage('about');closeMenu()">About</a></li>
@@ -706,21 +372,23 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
     <li><a onclick="showPage('merchandise');closeMenu()">Merchandise</a></li>
     <li><a onclick="showPage('contact');closeMenu()">Contact</a></li>
   </ul>
-
-  <a class="nav-apply" onclick="showPage('apply')">Apply</a>
+  <a class="nav-book" href="https://app.acuityscheduling.com/schedule.php?owner=39081362" target="_blank">Book Now</a>
   <div class="nav-burger" id="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
 
-<!-- ══ PAGE: HOME ══ -->
+<!-- ══════════════════════════════════
+     HOME PAGE
+══════════════════════════════════ -->
 <div class="page active" id="page-home">
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
       <div>
-        <div class="hero-eyebrow animate">
+        <div class="animate" style="margin-bottom:32px">
           <span class="mono">Ultima · The Method</span>
         </div>
         <h1 class="hero-headline animate delay-1">
@@ -731,15 +399,14 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
           Peak performance is not a feeling.<br>It is a system. Precise. Repeatable. Formidable.
         </p>
         <div class="hero-cta animate delay-4">
-          <a class="btn-primary" onclick="showPage('apply')">Apply for access</a>
+          <a class="btn-primary btn-large" href="https://app.acuityscheduling.com/schedule.php?owner=39081362" target="_blank">Book a Session</a>
           <a class="btn-ghost" onclick="showPage('about')">The Method →</a>
         </div>
       </div>
       <div class="hero-bottom">
-        <span class="mono mono-dim">Global Performance Network · Est. 2025</span>
+        <span class="mono mono-dim">Hong Kong · Est. 2025</span>
       </div>
     </div>
-
     <div class="hero-right">
       <div class="hero-crosshair-wrap">
         <svg class="hero-crosshair" viewBox="0 0 200 200" fill="none">
@@ -748,10 +415,6 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
           <line x1="12"  y1="100" x2="72"  y2="100" stroke="#E8F4FF" stroke-width="1.2" stroke-linecap="square" opacity="0.18"/>
           <line x1="128" y1="100" x2="188" y2="100" stroke="#E8F4FF" stroke-width="1.2" stroke-linecap="square" opacity="0.18"/>
           <circle cx="100" cy="100" r="5" fill="#7B9FBE" opacity="0.55"/>
-          <line x1="100" y1="0"   x2="100" y2="8"   stroke="#1E3A5F" stroke-width="0.5" opacity="0.4"/>
-          <line x1="100" y1="192" x2="100" y2="200" stroke="#1E3A5F" stroke-width="0.5" opacity="0.4"/>
-          <line x1="0"   y1="100" x2="8"   y2="100" stroke="#1E3A5F" stroke-width="0.5" opacity="0.4"/>
-          <line x1="192" y1="100" x2="200" y2="100" stroke="#1E3A5F" stroke-width="0.5" opacity="0.4"/>
         </svg>
       </div>
       <div class="hero-stats">
@@ -774,13 +437,19 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
   </section>
 
   <!-- ABOUT STRIP -->
-  <section class="about" id="about-strip">
+  <section class="about">
     <div class="container">
-      <div class="section-header animate" style="margin-bottom:64px">
-        <span class="mono">The Method</span>
-        <h2>Architecture<br>of the<br>exceptional.</h2>
-        <div class="section-rule"></div>
-        <p class="lead">Built on a philosophy that performance is designed, not discovered.</p>
+      <div class="about-grid">
+        <div class="section-header animate">
+          <span class="mono">Sanctum of the Limitless</span>
+          <h2 style="margin-top:20px">Ultima is where<br>Hong Kong's peak<br>performers are<br><em>forged.</em></h2>
+          <div class="section-rule"></div>
+          <p class="lead">Through the alchemy of elite discipline and extraordinary energy, we forge apex performance and awaken superhuman potential.</p>
+        </div>
+        <div class="animate delay-1" style="padding-top:8px">
+          <p>We exist at the altitude where most stop trying. Built not on inspiration — but on architecture. The architecture of elite discipline, precision coaching, and structured progression.</p>
+          <p style="margin-top:14px">Every person has a threshold. The exact point where the body says stop and the mind considers agreeing. Most training systems avoid this moment. Ultima is built for it.</p>
+        </div>
       </div>
       <div class="about-values">
         <div class="value-item animate">
@@ -818,58 +487,33 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
   <!-- PROGRAM -->
   <section class="program">
     <div class="container">
-      <div class="program-intro animate">
-        <div class="section-header" style="margin-bottom:0">
-          <span class="mono">The Method</span>
-          <h2>The<br>program.</h2>
-          <div class="section-rule"></div>
-        </div>
-        <div class="program-intro-text">
-          <p class="lead">The Ultima Method is a full-spectrum approach designed to build resilient strength, exceptional movement quality, and total-body control.</p>
-          <p style="margin-top:20px">High-energy, high-intensity strength and conditioning sessions that develop raw strength, muscular endurance, metabolic conditioning, injury resilience, and superior movement quality — all in one cohesive system.</p>
-          <p style="margin-top:14px">Every class is scalable: lighter options and regressions for beginners, heavier loads and thicker bands for advanced participants. Expect to leave every Ultima session feeling stronger, more stable, deeply connected to your core, and properly challenged.</p>
-          <p style="margin-top:14px">Minimal equipment. Maximum results. No repetitive routines — just purposeful, progressive training that forges a more capable, balanced you.</p>
-          <div class="program-meta">
-            <span class="mono">Five focused classes &nbsp;·&nbsp; 50 minutes each &nbsp;·&nbsp; All levels</span>
-          </div>
-        </div>
+      <div class="section-header animate">
+        <span class="mono">The philosophy of progression</span>
+        <h2 style="margin-top:20px">The<br>program.</h2>
+        <div class="section-rule"></div>
+        <p class="lead">Each stage a different relationship with discipline. Each one necessary before the next becomes possible.</p>
       </div>
-
-      <div class="program-classes animate delay-1">
-        <div class="class-format">
-          <div class="cf-num">01</div>
-          <div class="cf-body">
-            <div class="cf-name">Full Body Equilibrium</div>
-            <div class="cf-desc">Heavy dumbbell and resistance-band supersets paired with stability and balance training. Total-body integration from the ground up.</div>
-          </div>
+      <div class="program-grid animate delay-1">
+        <div class="program-card">
+          <div class="program-phase">Stage 01</div>
+          <div class="program-title">Foundation</div>
+          <div class="program-rule"></div>
+          <p class="program-body">Before anything is built, the ground must be honest. We strip away assumption and replace it with truth. What you actually can do. What your body actually tolerates.</p>
+          <p class="program-body" style="margin-top:14px">Most people skip this stage because it doesn't feel like progress. That is exactly why it is the most important one.</p>
         </div>
-        <div class="class-format">
-          <div class="cf-num">02</div>
-          <div class="cf-body">
-            <div class="cf-name">Lower Body Forge</div>
-            <div class="cf-desc">Deep core activation, unilateral strength, and lower-body power. Built for athletes who demand more from their foundation.</div>
-          </div>
+        <div class="program-card">
+          <div class="program-phase">Stage 02</div>
+          <div class="program-title">Precision</div>
+          <div class="program-rule"></div>
+          <p class="program-body">This is where the architecture begins to show. The foundation holds weight. The system compounds. Every variable is a choice with a measurable consequence.</p>
+          <p class="program-body" style="margin-top:14px">This is where most programmes end. We treat it as the beginning of the real work.</p>
         </div>
-        <div class="class-format">
-          <div class="cf-num">03</div>
-          <div class="cf-body">
-            <div class="cf-name">Core Ignition</div>
-            <div class="cf-desc">Agility work, deep core sequencing, and anti-rotation training. Coordination and control at the centre of everything.</div>
-          </div>
-        </div>
-        <div class="class-format">
-          <div class="cf-num">04</div>
-          <div class="cf-body">
-            <div class="cf-name">Upper Body Strength</div>
-            <div class="cf-desc">Resistance-band supersets and dumbbell pressing mechanics targeting upper-body strength, posture, and metabolic conditioning.</div>
-          </div>
-        </div>
-        <div class="class-format">
-          <div class="cf-num">05</div>
-          <div class="cf-body">
-            <div class="cf-name">Glutes &amp; Arms Forge</div>
-            <div class="cf-desc">Targeted hypertrophy and muscular endurance for the posterior chain and arms. Precision loading. Purposeful volume.</div>
-          </div>
+        <div class="program-card">
+          <div class="program-phase">Stage 03</div>
+          <div class="program-title">Apex</div>
+          <div class="program-rule"></div>
+          <p class="program-body">Apex is not a destination. It is a state — accessible only to those who have built the foundation and sharpened the precision to earn it.</p>
+          <p class="program-body" style="margin-top:14px">Every previous session was preparation. The methodology calculates. You execute.</p>
         </div>
       </div>
     </div>
@@ -880,318 +524,115 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
     <div class="container cta-inner">
       <div>
         <h2 class="cta-headline">The system<br>is ready.</h2>
-        <p class="cta-sub">Applications reviewed within 48 hours.</p>
+        <p class="cta-sub">Book your first session today.</p>
       </div>
-      <a class="btn-primary btn-large" onclick="showPage('apply')">Apply for membership</a>
+      <a class="btn-primary btn-large" href="https://app.acuityscheduling.com/schedule.php?owner=39081362" target="_blank">Book Now via Acuity</a>
     </div>
   </section>
 
 </div><!-- /page-home -->
 
 
-<!-- ══ PAGE: SCHEDULE ══ -->
+<!-- ══════════════════════════════════
+     SCHEDULE PAGE
+══════════════════════════════════ -->
 <div class="page" id="page-schedule">
   <section class="schedule" style="padding-top:140px">
     <div class="container">
       <div class="section-header animate">
         <span class="mono">Schedule</span>
-        <h2>Book your<br><em>session.</em></h2>
+        <h2 style="margin-top:20px">Book your<br><em>session.</em></h2>
         <div class="section-rule"></div>
+        <p class="lead">All bookings are managed through Mindbody. Click any session to reserve your spot.</p>
       </div>
-      <div class="sched-filter">
-        <button class="fbtn on" data-f="all">All</button>
-        <button class="fbtn" data-f="equilibrium">Equilibrium</button>
-        <button class="fbtn" data-f="lower">Lower Body</button>
-        <button class="fbtn" data-f="core">Core</button>
-        <button class="fbtn" data-f="upper">Upper Body</button>
-        <button class="fbtn" data-f="sculpt">Sculpt</button>
-      </div>
-      <div class="class-grid" id="classGrid">
-        <div class="class-card" data-phase="equilibrium">
-          <div class="cc-day">Monday</div>
-          <div class="cc-time">06:00</div>
+
+      <div class="class-grid" style="margin-top:48px">
+        <div class="class-card">
+          <div class="cc-day">Saturday · 10 May</div>
+          <div class="cc-time">11:00</div>
           <div class="cc-name">Full Body Equilibrium</div>
           <div class="cc-coach">Coach — Elise Marlowe</div>
-          <div class="cc-tags"><span class="cc-tag">50 min</span><span class="cc-tag">All Levels</span></div>
-          <div class="cc-spots">8 spots remaining</div>
-          <button class="book-btn" onclick="openModal('Full Body Equilibrium','Monday · 06:00','Coach Elise Marlowe')">Reserve spot</button>
+          <div class="cc-tags"><span class="cc-tag">Foundation</span><span class="cc-tag">60 min</span></div>
+          <a class="book-session-btn" href="https://app.acuityscheduling.com/schedule.php?owner=39081362&appointmentType=92493082" target="_blank">Book this session</a>
         </div>
-        <div class="class-card" data-phase="lower">
-          <div class="cc-day">Tuesday</div>
-          <div class="cc-time">07:30</div>
-          <div class="cc-name">Lower Body Forge</div>
-          <div class="cc-coach">Coach — Damien Cross</div>
-          <div class="cc-tags"><span class="cc-tag">50 min</span><span class="cc-tag">All Levels</span></div>
-          <div class="cc-spots low">3 spots remaining</div>
-          <button class="book-btn" onclick="openModal('Lower Body Forge','Tuesday · 07:30','Coach Damien Cross')">Reserve spot</button>
-        </div>
-        <div class="class-card" data-phase="core">
-          <div class="cc-day">Wednesday</div>
-          <div class="cc-time">18:00</div>
-          <div class="cc-name">Core Ignition</div>
-          <div class="cc-coach">Coach — Elise Marlowe</div>
-          <div class="cc-tags"><span class="cc-tag">50 min</span><span class="cc-tag">All Levels</span></div>
-          <div class="cc-spots">12 spots remaining</div>
-          <button class="book-btn" onclick="openModal('Core Ignition','Wednesday · 18:00','Coach Elise Marlowe')">Reserve spot</button>
-        </div>
-        <div class="class-card" data-phase="upper">
-          <div class="cc-day">Thursday</div>
-          <div class="cc-time">06:30</div>
+        <div class="class-card">
+          <div class="cc-day">Sunday · 11 May</div>
+          <div class="cc-time">19:00</div>
           <div class="cc-name">Upper Body Strength</div>
           <div class="cc-coach">Coach — Damien Cross</div>
-          <div class="cc-tags"><span class="cc-tag">50 min</span><span class="cc-tag">All Levels</span></div>
-          <div class="cc-spots low">2 spots remaining</div>
-          <button class="book-btn" onclick="openModal('Upper Body Strength','Thursday · 06:30','Coach Damien Cross')">Reserve spot</button>
+          <div class="cc-tags"><span class="cc-tag">Apex</span><span class="cc-tag">60 min</span></div>
+          <a class="book-session-btn" href="https://app.acuityscheduling.com/schedule.php?owner=39081362&appointmentType=92493236" target="_blank">Book this session</a>
         </div>
-        <div class="class-card" data-phase="sculpt">
-          <div class="cc-day">Friday</div>
-          <div class="cc-time">07:00</div>
-          <div class="cc-name">Glutes &amp; Arms Forge</div>
+        <div class="class-card">
+          <div class="cc-day">Wednesday · 14 May</div>
+          <div class="cc-time">07:45</div>
+          <div class="cc-name">Lower Body Forge</div>
           <div class="cc-coach">Coach — Nadia Voss</div>
-          <div class="cc-tags"><span class="cc-tag">50 min</span><span class="cc-tag">All Levels</span></div>
-          <div class="cc-spots">6 spots remaining</div>
-          <button class="book-btn" onclick="openModal('Glutes &amp; Arms Forge','Friday · 07:00','Coach Nadia Voss')">Reserve spot</button>
+          <div class="cc-tags"><span class="cc-tag">Precision</span><span class="cc-tag">60 min</span></div>
+          <a class="book-session-btn" href="https://app.acuityscheduling.com/schedule.php?owner=39081362&appointmentType=92493293" target="_blank">Book this session</a>
         </div>
-        <div class="class-card" data-phase="equilibrium">
-          <div class="cc-day">Saturday</div>
-          <div class="cc-time">08:00</div>
-          <div class="cc-name">Full Body Equilibrium</div>
-          <div class="cc-coach">Coach — Nadia Voss</div>
-          <div class="cc-tags"><span class="cc-tag">50 min</span><span class="cc-tag">All Levels</span></div>
-          <div class="cc-spots">10 spots remaining</div>
-          <button class="book-btn" onclick="openModal('Full Body Equilibrium','Saturday · 08:00','Coach Nadia Voss')">Reserve spot</button>
-        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:64px;padding:48px;border:.5px solid var(--rule)">
+        <div class="mono" style="margin-bottom:20px">Manage your bookings</div>
+        <p style="max-width:420px;margin:0 auto 28px;color:rgba(123,159,190,.55);font-size:.85rem">Cancel, reschedule, or view your upcoming sessions directly through Mindbody.</p>
+        <a class="btn-primary" href="https://app.acuityscheduling.com/schedule.php?owner=39081362" target="_blank">Open Mindbody</a>
       </div>
     </div>
   </section>
 </div><!-- /page-schedule -->
 
 
-<!-- ══ PAGE: ABOUT ══ -->
+<!-- ══════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════ -->
 <div class="page" id="page-about">
-  <section style="background:var(--void);padding:160px 0 80px;border-bottom:.5px solid var(--night)">
+  <section class="about-page-hero">
     <div class="container">
       <span class="mono" style="display:block;margin-bottom:24px">About · The Method</span>
-      <h1 style="font-family:var(--serif);font-size:clamp(48px,6.5vw,96px);font-weight:300;line-height:1;color:var(--white)">The architecture<br>behind <em>Ultima.</em></h1>
+      <h1>The architecture<br>behind <em>Ultima.</em></h1>
     </div>
   </section>
   <section style="background:var(--void);padding:100px 0">
     <div class="container">
       <div class="philosophy-grid">
-        <div><h3>The Method</h3><div class="section-rule" style="margin:16px 0 20px"></div><p>The Method is the guiding philosophy and coaching framework at the foundation of Ultima. It is not a programme. It is an operating system — one that structures how training is designed, delivered, and measured at every level.</p></div>
-        <div><h3>Why Ultima</h3><div class="section-rule" style="margin:16px 0 20px"></div><p>Ultima is the global expression of The Method. Application-only. Globally distributed. Uncompromising in its demand for precision.</p><p style="margin-top:14px">Where The Method is the science, Ultima is the practice.</p></div>
-        <div><h3>The standard</h3><div class="section-rule" style="margin:16px 0 20px"></div><p>We do not ask members to be their best. We give them a system that makes that the inevitable outcome. Precision coaching. Measured recovery. Zero ambiguity.</p></div>
-        <div><h3>Hong Kong</h3><div class="section-rule" style="margin:16px 0 20px"></div><p>Ultima is headquartered in Hong Kong — a city built on discipline, precision, and the relentless pursuit of the exceptional. The network is deliberately small. That is not a limitation. That is the point.</p></div>
+        <div>
+          <h3>The Method</h3>
+          <div class="section-rule" style="margin:16px 0 20px"></div>
+          <p>The Method is the guiding philosophy and coaching framework at the foundation of Ultima. It is not a programme. It is an operating system — one that structures how training is designed, delivered, and measured at every level.</p>
+        </div>
+        <div>
+          <h3>Why Ultima</h3>
+          <div class="section-rule" style="margin:16px 0 20px"></div>
+          <p>Ultima is the global expression of The Method. Where The Method is the science, Ultima is the practice — a network of individuals trained and held to a standard the world hasn't named yet.</p>
+          <p style="margin-top:14px">Globally distributed. Uncompromising in its demand for precision.</p>
+        </div>
+        <div>
+          <h3>The standard</h3>
+          <div class="section-rule" style="margin:16px 0 20px"></div>
+          <p>We do not ask members to be their best. We give them a system that makes that the inevitable outcome. Precision coaching. Measured recovery. Zero ambiguity.</p>
+          <p style="margin-top:14px">The exceptional don't announce themselves. They calculate. They execute. They move on.</p>
+        </div>
+        <div>
+          <h3>Hong Kong</h3>
+          <div class="section-rule" style="margin:16px 0 20px"></div>
+          <p>Ultima is headquartered in Hong Kong — a city built on discipline, precision, and the relentless pursuit of the exceptional. The methodology travels globally, but the standard is set here.</p>
+        </div>
       </div>
     </div>
   </section>
   <section style="background:var(--void);padding:80px 0;border-top:.5px solid var(--night)">
-    <div class="container">
-      <div class="section-header" style="margin-bottom:48px">
-        <span class="mono">Our Coaches</span>
-        <h2>The architects<br>of <em>transformation.</em></h2>
-        <div class="section-rule"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px" id="coaches-page-grid">
-        <div style="font-family:var(--mono);font-size:8px;letter-spacing:.14em;color:var(--signal);text-transform:uppercase">Loading coaches...</div>
-      </div>
-    </div>
-  </section>
-  <section style="background:var(--void);padding:80px 0;border-top:.5px solid var(--night)">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
-      <h2 style="font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--white)">Ready to be<br>reviewed?</h2>
-      <a class="btn-primary" onclick="showPage('apply')">Apply for membership</a>
+    <div class="container cta-inner">
+      <h2 style="font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--white)">Ready to begin?</h2>
+      <a class="btn-primary" href="https://app.acuityscheduling.com/schedule.php?owner=39081362" target="_blank">Book via Mindbody</a>
     </div>
   </section>
 </div><!-- /page-about -->
 
 
-<!-- ══ PAGE: APPLY ══ -->
-<div class="page" id="page-apply">
-  <section class="apply-section">
-    <div class="container">
-      <div class="apply-grid">
-        <div class="apply-info">
-          <span class="mono" style="display:block;margin-bottom:24px">Application · Vetted membership</span>
-          <h2 class="apply-headline">This is<br>not an<br><em>open door.</em></h2>
-          <div class="section-rule" style="margin:24px 0"></div>
-          <p>Ultima operates on an application basis. Every member is reviewed. Every admission is a decision — not a transaction.</p>
-          <p style="margin-top:14px">We are not looking for the most motivated. We are looking for the most <strong>calculated</strong>.</p>
-          <div class="apply-requirements">
-            <span class="apply-req-title mono">What we review</span>
-            <div class="req-item">Your current training background and consistency</div>
-            <div class="req-item">Your performance goals — specific, not aspirational</div>
-            <div class="req-item">Why structured methodology over self-directed training</div>
-            <div class="req-item">Commitment to the standard — no exceptions</div>
-          </div>
-        </div>
-        <div>
-          <span class="mono" style="display:block;margin-bottom:32px">Application form</span>
-          <form class="apply-form" name="application" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="submitApplication(event)">
-            <input type="hidden" name="form-name" value="application"/>
-            <p style="display:none"><label>Don't fill: <input name="bot-field"/></label></p>
-            <div class="form-group">
-              <label>Full name</label>
-              <input type="text" name="name" placeholder="As it will appear on your membership" required/>
-            </div>
-            <div class="form-group">
-              <label>Email address</label>
-              <input type="email" name="email" placeholder="Your primary contact" required/>
-            </div>
-            <div class="form-group">
-              <label>City · Country</label>
-              <input type="text" name="location" placeholder="Where you train" required/>
-            </div>
-            <div class="form-group">
-              <label>Years of consistent training</label>
-              <select name="experience" required>
-                <option value="" disabled selected>Select</option>
-                <option>Under 1 year</option>
-                <option>1 – 3 years</option>
-                <option>3 – 5 years</option>
-                <option>5 – 10 years</option>
-                <option>10+ years</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Primary training discipline</label>
-              <select name="discipline" required>
-                <option value="" disabled selected>Select</option>
-                <option>Strength / Powerlifting</option>
-                <option>Olympic Weightlifting</option>
-                <option>CrossFit / Functional Fitness</option>
-                <option>Bodybuilding / Hypertrophy</option>
-                <option>Endurance / Conditioning</option>
-                <option>Mixed / General Performance</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Current performance goal</label>
-              <textarea name="goal" rows="3" placeholder="Be specific. Vague answers are not reviewed." required></textarea>
-            </div>
-            <div class="form-group">
-              <label>Why Ultima — in one sentence</label>
-              <textarea name="why" rows="2" placeholder="Precision over inspiration." required></textarea>
-            </div>
-            <div class="form-group">
-              <label>How did you hear about Ultima</label>
-              <select name="source">
-                <option value="" disabled selected>Select</option>
-                <option>Referred by a member</option>
-                <option>Instagram</option>
-                <option>Press / editorial</option>
-                <option>Direct search</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-submit">
-              <button type="submit" class="btn-primary">Submit application</button>
-              <span class="form-note mono">Reviewed within 48 hours · No exceptions</span>
-            </div>
-          </form>
-          <div id="apply-confirm" style="display:none;margin-top:48px;padding:40px;border:.5px solid var(--steel)">
-            <span class="mono" style="display:block;margin-bottom:16px">Application received</span>
-            <p style="font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--white);margin-bottom:12px">We have your application.</p>
-            <p style="font-size:.85rem;color:var(--signal);line-height:1.8">You will receive a decision within 48 hours. If admitted, you will be assigned a member number and onboarding materials will follow.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div><!-- /page-apply -->
-
-
-<!-- ══ PAGE: COACH ══ -->
-<div class="page" id="page-coach">
-  <section style="background:var(--void);padding-top:140px;padding-bottom:100px;min-height:100vh">
-    <div class="container">
-
-      <div class="section-header animate" style="margin-bottom:80px">
-        <span class="mono">The Coaching Team</span>
-        <h2>Who builds<br><em>Ultima.</em></h2>
-        <div class="section-rule"></div>
-        <p class="lead">Our coaches are not instructors. They are architects of transformation.</p>
-      </div>
-
-      <div class="coach-grid">
-
-        <!-- Coach 1 -->
-        <div class="coach-card animate">
-          <div class="coach-photo-wrap">
-            <label class="coach-photo-label" for="photo-1">
-              <div class="coach-photo-placeholder">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="8" r="4" stroke="#7B9FBE" stroke-width=".8"/>
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#7B9FBE" stroke-width=".8" stroke-linecap="square"/>
-                </svg>
-                <span>Upload photo</span>
-              </div>
-              <img class="coach-photo-img" id="img-1" src="" alt="" style="display:none"/>
-            </label>
-            <input type="file" id="photo-1" accept="image/*" style="display:none" onchange="previewPhoto(this,'img-1')"/>
-          </div>
-          <div class="coach-info">
-            <div class="coach-name">Coach Name</div>
-            <div class="coach-role">Role · Specialisation</div>
-            <div class="section-rule" style="margin:16px 0"></div>
-            <p class="coach-bio">Coach biography goes here. Describe their background, philosophy, and what they bring to the Ultima method.</p>
-          </div>
-        </div>
-
-        <!-- Coach 2 -->
-        <div class="coach-card animate delay-1">
-          <div class="coach-photo-wrap">
-            <label class="coach-photo-label" for="photo-2">
-              <div class="coach-photo-placeholder">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="8" r="4" stroke="#7B9FBE" stroke-width=".8"/>
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#7B9FBE" stroke-width=".8" stroke-linecap="square"/>
-                </svg>
-                <span>Upload photo</span>
-              </div>
-              <img class="coach-photo-img" id="img-2" src="" alt="" style="display:none"/>
-            </label>
-            <input type="file" id="photo-2" accept="image/*" style="display:none" onchange="previewPhoto(this,'img-2')"/>
-          </div>
-          <div class="coach-info">
-            <div class="coach-name">Coach Name</div>
-            <div class="coach-role">Role · Specialisation</div>
-            <div class="section-rule" style="margin:16px 0"></div>
-            <p class="coach-bio">Coach biography goes here. Describe their background, philosophy, and what they bring to the Ultima method.</p>
-          </div>
-        </div>
-
-        <!-- Coach 3 -->
-        <div class="coach-card animate delay-2">
-          <div class="coach-photo-wrap">
-            <label class="coach-photo-label" for="photo-3">
-              <div class="coach-photo-placeholder">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="8" r="4" stroke="#7B9FBE" stroke-width=".8"/>
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#7B9FBE" stroke-width=".8" stroke-linecap="square"/>
-                </svg>
-                <span>Upload photo</span>
-              </div>
-              <img class="coach-photo-img" id="img-3" src="" alt="" style="display:none"/>
-            </label>
-            <input type="file" id="photo-3" accept="image/*" style="display:none" onchange="previewPhoto(this,'img-3')"/>
-          </div>
-          <div class="coach-info">
-            <div class="coach-name">Coach Name</div>
-            <div class="coach-role">Role · Specialisation</div>
-            <div class="section-rule" style="margin:16px 0"></div>
-            <p class="coach-bio">Coach biography goes here. Describe their background, philosophy, and what they bring to the Ultima method.</p>
-          </div>
-        </div>
-
-      </div><!-- /coach-grid -->
-
-    </div>
-  </section>
-</div><!-- /page-coach -->
-
-
-<!-- ══ PAGE: MERCHANDISE ══ -->
+<!-- ══════════════════════════════════
+     MERCHANDISE PAGE
+══════════════════════════════════ -->
 <div class="page" id="page-merchandise">
   <section class="merch-section">
     <div class="merch-bg-txt">ULTIMA</div>
@@ -1204,7 +645,7 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
         <circle cx="90" cy="90" r="14" fill="#7B9FBE"/>
       </svg>
     </div>
-    <div class="merch-eyebrow mono">The Ultima Collection</div>
+    <div class="merch-eyebrow">The Ultima Collection</div>
     <h2 class="merch-headline">Coming Soon.</h2>
     <p class="merch-body">Precision-engineered apparel built for performance at altitude. Forged, not found.</p>
     <div class="merch-form">
@@ -1215,20 +656,22 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
 </div><!-- /page-merchandise -->
 
 
-<!-- ══ PAGE: CONTACT ══ -->
+<!-- ══════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════ -->
 <div class="page" id="page-contact">
   <section style="background:var(--void);padding-top:140px;padding-bottom:100px;min-height:100vh">
     <div class="container">
       <div class="section-header">
         <span class="mono">Contact</span>
-        <h2>Reach<br>Ultima.</h2>
+        <h2 style="margin-top:20px">Reach<br><em>Ultima.</em></h2>
         <div class="section-rule"></div>
-        <p class="lead">We respond to substantive enquiries. For membership, use the application form.</p>
+        <p class="lead">We respond to substantive enquiries. For bookings, use Mindbody.</p>
       </div>
       <div class="contact-grid">
         <div>
           <div class="contact-info-block">
-            <span class="mono">General enquiries</span>
+            <span class="mono">Email</span>
             <a href="mailto:info@ultimamethod.com">info@ultimamethod.com</a>
           </div>
           <div class="contact-info-block">
@@ -1236,49 +679,32 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
             <a href="https://instagram.com/ultimamethod" target="_blank">@ultimamethod</a>
           </div>
           <div class="contact-info-block">
+            <span class="mono">Bookings</span>
+            <a href="https://app.acuityscheduling.com/schedule.php?owner=39081362" target="_blank">Book via Mindbody</a>
+          </div>
+          <div class="contact-info-block">
             <span class="mono">Website</span>
             <a href="https://ultimamethod.com">ultimamethod.com</a>
-          </div>
-          <div class="contact-info-block" style="margin-top:40px">
-            <span class="mono">For membership</span>
-            <a onclick="showPage('apply')" style="cursor:pointer;color:var(--signal);font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase">Use the application form →</a>
           </div>
         </div>
         <div>
           <span class="mono" style="display:block;margin-bottom:32px">Send a message</span>
-          <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="submitContact(event)">
-            <input type="hidden" name="form-name" value="contact"/>
-            <p style="display:none"><label>Don't fill: <input name="bot-field"/></label></p>
+          <div id="contactWrap">
             <div class="form-group">
               <label>Name</label>
-              <input type="text" name="name" placeholder="Full name" required/>
+              <input type="text" id="cName" placeholder="Full name"/>
             </div>
             <div class="form-group">
               <label>Email</label>
-              <input type="email" name="email" placeholder="Your email address" required/>
-            </div>
-            <div class="form-group">
-              <label>Subject</label>
-              <select name="subject" required>
-                <option value="" disabled selected>Select</option>
-                <option>General enquiry</option>
-                <option>Press / editorial</option>
-                <option>Partnership proposal</option>
-                <option>Other</option>
-              </select>
+              <input type="email" id="cEmail" placeholder="your@email.com"/>
             </div>
             <div class="form-group">
               <label>Message</label>
-              <textarea name="message" rows="5" placeholder="Be specific." required></textarea>
+              <textarea id="cMsg" rows="5" placeholder="Your message..."></textarea>
             </div>
-            <div class="form-submit">
-              <button type="submit" class="btn-primary">Send message</button>
-            </div>
-          </form>
-          <div id="contact-confirm" style="display:none;margin-top:32px;padding:32px;border:.5px solid var(--steel)">
-            <span class="mono" style="display:block;margin-bottom:12px">Message received</span>
-            <p style="font-size:.85rem;color:var(--signal)">We will respond within 48 hours on business days.</p>
+            <button class="c-submit" onclick="submitContact()">Send Message</button>
           </div>
+          <div class="c-success" id="cSuccess">Message received · We will respond shortly.</div>
         </div>
       </div>
     </div>
@@ -1286,12 +712,12 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
 </div><!-- /page-contact -->
 
 
-<!-- ══ FOOTER ══ -->
+<!-- ── FOOTER ── -->
 <footer>
   <div class="container">
     <div class="footer-inner">
       <div>
-        <div class="footer-logo-lockup">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="opacity:.35">
             <line x1="12" y1="1"  x2="12" y2="8"  stroke="#E8F4FF" stroke-width="1.4" stroke-linecap="square"/>
             <line x1="12" y1="16" x2="12" y2="23" stroke="#E8F4FF" stroke-width="1.4" stroke-linecap="square"/>
@@ -1305,9 +731,9 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
       </div>
       <div class="footer-links">
         <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('coach')">Coach</a>
+        <a onclick="showPage('about')">About</a>
         <a onclick="showPage('schedule')">Schedule</a>
-        <a onclick="showPage('apply')">Apply</a>
+        <a onclick="showPage('merchandise')">Merchandise</a>
         <a onclick="showPage('contact')">Contact</a>
       </div>
     </div>
@@ -1315,311 +741,57 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
 </footer>
 
 
-<!-- ══ BOOKING MODAL ══ -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div id="modalFormWrap">
-      <div class="modal-hd">
-        <div>
-          <div class="modal-title" id="mTitle">—</div>
-          <div class="modal-sub" id="mMeta">—</div>
-        </div>
-        <button class="modal-x" onclick="closeModal()">✕</button>
-      </div>
-      <div class="modal-bd">
-        <div class="frow">
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" class="finput" placeholder="First" id="bFirst"/>
-          </div>
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" class="finput" placeholder="Last" id="bLast"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" class="finput" placeholder="your@email.com" id="bEmail"/>
-        </div>
-        <div class="form-group">
-          <label>Phone (Optional)</label>
-          <input type="tel" class="finput" placeholder="+852 0000 0000"/>
-        </div>
-        <label style="font-family:var(--mono);font-size:8px;letter-spacing:.2em;color:var(--signal);text-transform:uppercase;display:block;margin-bottom:10px">Card Details</label>
-        <div class="stripe-wrap" id="cardEl"></div>
-        <div class="stripe-note">🔒 &nbsp;Secured by Stripe · 256-bit TLS</div>
-        <div class="pay-err" id="payErr"></div>
-        <button class="pay-btn" id="payBtn" onclick="handlePay()">
-          <span class="pay-txt">Confirm &amp; Reserve</span>
-          <div class="spinner"></div>
-        </button>
-      </div>
-    </div>
-    <div class="success-wrap" id="successWrap">
-      <svg width="48" height="48" viewBox="0 0 96 96" fill="none">
-        <line x1="48" y1="6"  x2="48" y2="30" stroke="#E8F4FF" stroke-width="2.8" stroke-linecap="square"/>
-        <line x1="48" y1="66" x2="48" y2="90" stroke="#E8F4FF" stroke-width="2.8" stroke-linecap="square"/>
-        <line x1="6"  y1="48" x2="30" y2="48" stroke="#E8F4FF" stroke-width="2.8" stroke-linecap="square"/>
-        <line x1="66" y1="48" x2="90" y2="48" stroke="#E8F4FF" stroke-width="2.8" stroke-linecap="square"/>
-        <circle cx="48" cy="48" r="7.5" fill="#7B9FBE"/>
-      </svg>
-      <div class="success-title">Spot Reserved.</div>
-      <div class="success-sub" id="successSub">Your edge awaits.</div>
-      <div id="cancelInfo" style="display:none;margin-top:20px;font-family:var(--mono);font-size:7.5px;letter-spacing:.14em;color:rgba(123,159,190,.45);text-transform:uppercase;line-height:1.8">
-        Need to cancel? Visit ultimamethod.com/cancel.html<br>Cancellations accepted up to 24 hours before your session.
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <script>
-/* PAGE ROUTING */
+/* ── PAGE ROUTING ── */
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const t = document.getElementById('page-' + id);
-  if (t) { t.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
-  if (id === 'schedule') loadSchedule();
-  if (id === 'about') loadCoachesPage();
+  if (t) { t.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   observeAnimations();
 }
 
-/* MENU */
+/* ── MENU ── */
 function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
 function closeMenu()  { document.getElementById('navLinks').classList.remove('open'); }
 
-/* SCROLL NAV */
+/* ── NAV SCROLL ── */
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-/* ANIMATE ON SCROLL */
+/* ── ANIMATIONS ── */
 function observeAnimations() {
-  const els = document.querySelectorAll('.animate:not(.in)');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
   }, { threshold: 0.12 });
-  els.forEach(el => {
+  document.querySelectorAll('.animate:not(.in)').forEach(el => {
     if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
     else obs.observe(el);
   });
 }
 document.addEventListener('DOMContentLoaded', observeAnimations);
 
-/* FORMS — BACKEND */
-async function submitApplication(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = Object.fromEntries(new FormData(form));
-  try {
-    await fetch('/api/save-data', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'application', data })
-    });
-  } catch(err) {}
-  form.style.display = 'none';
-  document.getElementById('apply-confirm').style.display = 'block';
-}
-function submitContact(e) {
-  e.preventDefault();
-  const form = e.target;
-  fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(new FormData(form)).toString() }).catch(()=>{});
-  form.style.display = 'none';
-  document.getElementById('contact-confirm').style.display = 'block';
-}
-
-/* SCHEDULE — load live from backend */
-async function loadSchedule() {
-  try {
-    const res = await fetch('/api/get-data?type=schedule');
-    const sessions = await res.json();
-    if (!Array.isArray(sessions) || !sessions.length) return;
-    const grid = document.getElementById('classGrid');
-    if (!grid) return;
-    grid.innerHTML = sessions.map(s => `
-      <div class="class-card" data-phase="${s.phase}">
-        <div class="cc-day">${s.day}</div>
-        <div class="cc-time">${s.time}</div>
-        <div class="cc-name">${s.name}</div>
-        <div class="cc-coach">Coach — ${s.coach}</div>
-        <div class="cc-tags"><span class="cc-tag">${s.phase.charAt(0).toUpperCase()+s.phase.slice(1)}</span><span class="cc-tag">${s.duration}</span></div>
-        <div class="cc-spots ${s.spotsLeft <= 3 ? 'low' : ''}">${s.spotsLeft} spot${s.spotsLeft !== 1 ? 's' : ''} remaining</div>
-        <button class="book-btn" onclick="openModal('${s.name}','${s.day} · ${s.time}','Coach ${s.coach}')">Reserve spot</button>
-      </div>`).join('');
-  } catch(e) {}
-}
-
-/* COACHES — load live from backend */
-async function loadCoachesPage() {
-  try {
-    const res = await fetch('/api/get-data?type=coaches');
-    const coaches = await res.json();
-    const grid = document.getElementById('coaches-page-grid');
-    if (!grid || !coaches.length) return;
-    grid.innerHTML = coaches.map(c => `
-      <div style="background:var(--deep);border:.5px solid var(--rule);padding:0;overflow:hidden">
-        <div style="width:100%;aspect-ratio:1;background:var(--steel);overflow:hidden;display:flex;align-items:center;justify-content:center">
-          ${c.photo
-            ? `<img src="${c.photo}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover"/>`
-            : `<span style="font-family:var(--serif);font-size:64px;font-weight:300;color:var(--signal);opacity:.4">${c.name.charAt(0)}</span>`}
-        </div>
-        <div style="padding:24px">
-          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--white);text-transform:uppercase;margin-bottom:6px">${c.name}</div>
-          <div style="font-size:.82rem;color:var(--signal);margin-bottom:10px">${c.role}</div>
-          <div style="font-size:.8rem;color:rgba(123,159,190,.6);line-height:1.7">${c.bio}</div>
-        </div>
-      </div>`).join('');
-  } catch(e) {}
-}
-
-/* SCHEDULE FILTER */
-document.querySelectorAll('.fbtn').forEach(b => {
-  b.addEventListener('click', function() {
-    document.querySelectorAll('.fbtn').forEach(x => x.classList.remove('on'));
-    this.classList.add('on');
-    const f = this.dataset.f;
-    document.querySelectorAll('.class-card').forEach(c => {
-      c.style.display = (f === 'all' || c.dataset.phase === f) ? '' : 'none';
-    });
-  });
-});
-
-/* STRIPE */
-const STRIPE_PK = 'pk_live_51TQoYU6VKnWXOpD8saO1NjO6jzFQIU6iUApbezzteNj2s96CKc2YiCnyGsz6Jnqia5Xu6FBfrWKw5ADaczUMD2TW00oa0DRvNP';
-let stripe, cardElement, currentSession = '', currentSessionId = '', currentSessionDay = '', currentSessionDateTime = '';
-function initStripe() {
-  if (typeof Stripe === 'undefined' || stripe) return;
-  stripe = Stripe(STRIPE_PK);
-  const els = stripe.elements({ fonts:[{ cssSrc:'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300&display=swap' }] });
-  cardElement = els.create('card', {
-    style: { base:{ color:'#E8F4FF', fontFamily:'"DM Sans",sans-serif', fontWeight:'300', fontSize:'14px', '::placeholder':{ color:'rgba(123,159,190,0.25)' } }, invalid:{ color:'#906060' } }
-  });
-  cardElement.mount('#cardEl');
-  cardElement.on('focus', () => document.getElementById('cardEl').classList.add('focused'));
-  cardElement.on('blur',  () => document.getElementById('cardEl').classList.remove('focused'));
-}
-
-/* MODAL */
-function openModal(name, meta, coach, sessionId, day, datetime) {
-  currentSession = name;
-  currentSessionId = sessionId || '';
-  currentSessionDay = day || '';
-  currentSessionDateTime = datetime || '';
-  document.getElementById('mTitle').textContent = name;
-  document.getElementById('mMeta').textContent  = meta + ' · ' + coach;
-  document.getElementById('modalFormWrap').style.display = '';
-  document.getElementById('successWrap').style.display   = 'none';
-  document.getElementById('payErr').style.display        = 'none';
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  initStripe();
-}
-function closeModal() {
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('overlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('overlay')) closeModal();
-});
-
-/* PAYMENT */
-async function handlePay() {
-  const btn   = document.getElementById('payBtn');
-  const err   = document.getElementById('payErr');
-  const first = document.getElementById('bFirst').value.trim();
-  const last  = document.getElementById('bLast').value.trim();
-  const email = document.getElementById('bEmail').value.trim();
-  if (!first || !last || !email) {
-    err.textContent = 'Please complete all required fields.';
-    err.style.display = 'block'; return;
-  }
-  err.style.display = 'none';
-  btn.classList.add('loading'); btn.disabled = true;
-
-  try {
-    // Step 1: create PaymentIntent on server
-    const res = await fetch('/api/create-payment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionName: currentSession,
-        sessionId: currentSessionId || '',
-        sessionDay: currentSessionDay || '',
-        sessionTime: currentSessionDateTime || '',
-        customerName: first + ' ' + last,
-        customerEmail: email
-      })
-    });
-    const data = await res.json();
-    if (data.error) {
-      err.textContent = data.error;
-      err.style.display = 'block';
-      btn.classList.remove('loading'); btn.disabled = false; return;
-    }
-
-    // Step 2: confirm card payment
-    const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(data.clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: { name: first + ' ' + last, email }
-      }
-    });
-
-    if (stripeError) {
-      err.textContent = stripeError.message;
-      err.style.display = 'block';
-    } else if (paymentIntent.status === 'succeeded') {
-      // Step 3: save booking record
-      await fetch('/api/save-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'booking',
-          data: {
-            sessionName: currentSession,
-            sessionDay: currentSessionDay || '',
-            sessionTime: currentSessionDateTime || '',
-            customerName: first + ' ' + last,
-            customerEmail: email,
-            paymentIntentId: paymentIntent.id,
-            amount: 280,
-            currency: 'HKD'
-          }
-        })
-      }).catch(() => {});
-      showSuccess(first, email);
-    }
-  } catch(e) {
-    err.textContent = 'Payment failed. Please try again.';
-    err.style.display = 'block';
-  }
-
-  btn.classList.remove('loading'); btn.disabled = false;
-}
-
-function showSuccess(first, email) {
-  document.getElementById('modalFormWrap').style.display = 'none';
-  document.getElementById('successWrap').style.display   = 'block';
-  document.getElementById('successSub').textContent      = 'Your edge awaits, ' + first + '. A confirmation has been sent to ' + email + '.';
-  document.getElementById('cancelInfo').style.display    = 'block';
-}
-
-/* COACH PHOTO PREVIEW */
-function previewPhoto(input, imgId) {
-  const file = input.files[0];
-  if (!file) return;
-  const img = document.getElementById(imgId);
-  img.src = URL.createObjectURL(file);
-  img.style.display = 'block';
-  img.previousElementSibling.style.display = 'none';
-}
-
+/* ── MERCH NOTIFY ── */
 function handleNotify(btn) {
   const v = document.getElementById('notifyEmail').value.trim();
   if (!v) return;
-  btn.textContent = 'Noted.'; btn.style.background = 'var(--signal)';
-  setTimeout(() => { btn.textContent='Notify Me'; btn.style.background=''; document.getElementById('notifyEmail').value=''; }, 3000);
+  btn.textContent = 'Noted.';
+  btn.style.background = 'var(--signal)';
+  setTimeout(() => {
+    btn.textContent = 'Notify Me';
+    btn.style.background = '';
+    document.getElementById('notifyEmail').value = '';
+  }, 3000);
+}
+
+/* ── CONTACT ── */
+function submitContact() {
+  const n = document.getElementById('cName').value.trim();
+  const e = document.getElementById('cEmail').value.trim();
+  const m = document.getElementById('cMsg').value.trim();
+  if (!n || !e || !m) return;
+  document.getElementById('contactWrap').style.display = 'none';
+  document.getElementById('cSuccess').style.display = 'block';
 }
 </script>
 </body>
