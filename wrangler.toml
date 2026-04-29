@@ -1,6 +1,5 @@
-name = "ultima-method"
-compatibility_date = "2024-01-01"
+name = "ultima-site"
+compatibility_date = "2026-04-29"
 
-[[kv_namespaces]]
-binding = "ULTIMA_DB"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+[assets]
+directory = "."
