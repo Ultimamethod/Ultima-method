@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Ultima · The Method — Engineered for the Exceptional</title>
-<meta name="description" content="Ultima · The Method. Engineered for the exceptional. Precision coaching. Structured progression. Hong Kong."/>
+<title>Ultima · The Method — Engineered to forge the exceptional</title>
+<meta name="description" content="Ultima · The Method. Engineered to forge the exceptional. Precision coaching. Structured progression. Hong Kong."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet"/>
@@ -18,6 +18,8 @@
   --signal: #7B9FBE;
   --ice:    #C8DCF0;
   --white:  #E8F4FF;
+  --cream:  #EFE5D2;
+  --bone:   #D8CFB8;
   --serif:  'Cormorant Garamond', Georgia, serif;
   --sans:   'DM Sans', sans-serif;
   --mono:   'Space Mono', monospace;
@@ -118,7 +120,7 @@ h1,h2,h3 { font-family: var(--serif); font-weight: 300; line-height: 1; color: v
 h1 { font-size: clamp(52px, 7vw, 110px); }
 h2 { font-size: clamp(40px, 5vw, 72px); }
 h3 { font-size: clamp(22px, 2.5vw, 32px); }
-em { font-style: italic; color: var(--ice); }
+em { font-style: italic; color: var(--cream); }
 p { color: var(--signal); line-height: 1.85; font-size: .92rem; }
 p strong { color: var(--white); font-weight: 400; }
 .section-rule { width: 40px; height: .5px; background: var(--rule); margin: 24px 0; }
@@ -163,6 +165,11 @@ p strong { color: var(--white); font-weight: 400; }
     linear-gradient(90deg, rgba(36,61,92,.07) 1px, transparent 1px);
   background-size: 72px 72px; pointer-events: none;
 }
+.hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 78% 18%, rgba(239, 229, 210, .09), transparent 55%);
+  pointer-events: none; z-index: 0;
+}
 .hero-left {
   display: flex; flex-direction: column; justify-content: space-between;
   padding: 148px 56px 60px 48px;
@@ -203,15 +210,21 @@ p strong { color: var(--white); font-weight: 400; }
 
 /* ── MOMENT (image interlude) ── */
 .moment { position: relative; width: 100%; height: 70vh; min-height: 480px; max-height: 760px; overflow: hidden; background: var(--void); }
-.moment-bg { position: absolute; inset: 0; background-image: url('class.jpg'); background-size: cover; background-position: center 38%; filter: grayscale(55%) brightness(.78) contrast(1.10); transform: scale(1.02); animation: moment-zoom 28s ease-in-out infinite alternate; will-change: transform; }
+.moment-bg { position: absolute; inset: 0; background-image: url('class.jpg'); background-size: cover; background-position: center 38%; filter: grayscale(70%) brightness(.72) contrast(1.18); transform: scale(1.02); animation: moment-zoom 28s ease-in-out infinite alternate; will-change: transform; }
 @keyframes moment-zoom { from { transform: scale(1.02); } to { transform: scale(1.10); } }
-.moment-tint { position: absolute; inset: 0; background: rgba(150, 205, 235, .55); mix-blend-mode: color; pointer-events: none; }
-.moment-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 65% 30%, rgba(190, 230, 250, .18), transparent 65%); mix-blend-mode: screen; pointer-events: none; }
+.moment-tint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(120, 165, 200, .55) 0%, rgba(80, 120, 160, .45) 100%); mix-blend-mode: color; pointer-events: none; }
+.moment-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 22%, rgba(239, 229, 210, .28), transparent 60%); mix-blend-mode: screen; pointer-events: none; }
 .moment-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, var(--void) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 78%, var(--void) 100%); pointer-events: none; }
 .moment-content { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 24px; }
-.moment-mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .42em; color: rgba(123,159,190,.7); text-transform: uppercase; display: block; margin-bottom: 22px; }
-.moment-headline { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(2.4rem, 6vw, 4.4rem); color: rgba(255,255,255,.94); line-height: 1.05; letter-spacing: -.01em; margin: 0; max-width: 720px; }
-.moment-rule { width: 60px; height: 1px; background: var(--signal); opacity: .55; margin: 28px auto 0; }
+.moment-mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .42em; color: var(--cream); opacity: .8; text-transform: uppercase; display: block; margin-bottom: 22px; }
+.moment-headline { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(2.4rem, 6vw, 4.4rem); color: rgba(255,255,255,.96); line-height: 1.05; letter-spacing: -.01em; margin: 0; max-width: 720px; }
+.moment-headline em { color: var(--cream); }
+.moment-rule { width: 60px; height: 1px; background: var(--cream); opacity: .55; margin: 28px auto 0; }
+
+/* Interlude · 03 — stratosphere variant (image already has the right palette, lighter treatment) */
+.moment.is-strato .moment-bg { background-image: url('stratosphere.jpg'); background-position: center center; filter: brightness(.78) contrast(1.08) saturate(1.05); }
+.moment.is-strato .moment-tint { background: linear-gradient(180deg, rgba(120, 165, 200, .18) 0%, rgba(40, 70, 110, .28) 100%); mix-blend-mode: multiply; }
+.moment.is-strato .moment-glow { background: radial-gradient(ellipse at 50% 35%, rgba(239, 229, 210, .14), transparent 65%); }
 
 /* ── ABOUT ── */
 .about { background: var(--deep); padding: 100px 0; border-top: .5px solid var(--night); }
@@ -408,7 +421,7 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
           <span class="mono">Ultima · The Method</span>
         </div>
         <h1 class="hero-headline animate delay-1">
-          Engineered<br>for the<br><em>exceptional.</em>
+          Engineered<br>to forge the<br><em>exceptional.</em>
         </h1>
         <div class="hero-rule animate delay-2"></div>
         <p class="hero-body animate delay-3">
@@ -461,8 +474,6 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
     <div class="moment-content">
       <div>
         <span class="moment-mono">Interlude · 01</span>
-        <h2 class="moment-headline"><em>Train the threshold.</em></h2>
-        <div class="moment-rule"></div>
       </div>
     </div>
   </section>
@@ -473,9 +484,9 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
       <div class="about-grid">
         <div class="section-header animate">
           <span class="mono">Sanctum of the Limitless</span>
-          <h2 style="margin-top:20px">Ultima is where<br>Hong Kong's peak<br>performers are<br><em>forged.</em></h2>
+          <h2 style="margin-top:20px">Ultima is where<br>quiet ambition<br>is patiently<br><em>forged.</em></h2>
           <div class="section-rule"></div>
-          <p class="lead">Through the alchemy of elite discipline and extraordinary energy, we forge apex performance and awaken superhuman potential.</p>
+          <p class="lead">We forge what most people leave dormant — the version of themselves that keeps going. Precision coaching. Structured progression. A standard you didn't know you could meet.</p>
         </div>
         <div class="animate delay-1" style="padding-top:8px">
           <p>We exist at the altitude where most stop trying. Built not on inspiration — but on architecture. The architecture of elite discipline, precision coaching, and structured progression.</p>
@@ -508,44 +519,24 @@ footer { background: var(--void); border-top: .5px solid var(--rule); padding: 3
           <span class="value-num">04</span>
           <div>
             <div class="value-title">Rise to the rare</div>
-            <div class="value-body">This is not for everyone. It is for the few who have decided that ordinary is not an option.</div>
+            <div class="value-body">This is for anyone willing to find out what's on the other side of ordinary. Most never look. The few who do, change.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROGRAM -->
-  <section class="program">
-    <div class="container">
-      <div class="section-header animate">
-        <span class="mono">The philosophy of progression</span>
-        <h2 style="margin-top:20px">The<br>program.</h2>
-        <div class="section-rule"></div>
-        <p class="lead">Each stage a different relationship with discipline. Each one necessary before the next becomes possible.</p>
-      </div>
-      <div class="program-grid animate delay-1">
-        <div class="program-card">
-          <div class="program-phase">Stage 01</div>
-          <div class="program-title">Foundation</div>
-          <div class="program-rule"></div>
-          <p class="program-body">Before anything is built, the ground must be honest. We strip away assumption and replace it with truth. What you actually can do. What your body actually tolerates.</p>
-          <p class="program-body" style="margin-top:14px">Most people skip this stage because it doesn't feel like progress. That is exactly why it is the most important one.</p>
-        </div>
-        <div class="program-card">
-          <div class="program-phase">Stage 02</div>
-          <div class="program-title">Precision</div>
-          <div class="program-rule"></div>
-          <p class="program-body">This is where the architecture begins to show. The foundation holds weight. The system compounds. Every variable is a choice with a measurable consequence.</p>
-          <p class="program-body" style="margin-top:14px">This is where most programmes end. We treat it as the beginning of the real work.</p>
-        </div>
-        <div class="program-card">
-          <div class="program-phase">Stage 03</div>
-          <div class="program-title">Apex</div>
-          <div class="program-rule"></div>
-          <p class="program-body">Apex is not a destination. It is a state — accessible only to those who have built the foundation and sharpened the precision to earn it.</p>
-          <p class="program-body" style="margin-top:14px">Every previous session was preparation. The methodology calculates. You execute.</p>
-        </div>
+  <!-- MOMENT 03 (stratosphere interlude) -->
+  <section class="moment is-strato">
+    <div class="moment-bg"></div>
+    <div class="moment-tint"></div>
+    <div class="moment-glow"></div>
+    <div class="moment-overlay"></div>
+    <div class="moment-content">
+      <div>
+        <span class="moment-mono">Interlude · 03</span>
+        <h2 class="moment-headline">Not a gym.<br>A <em>stratosphere.</em></h2>
+        <div class="moment-rule"></div>
       </div>
     </div>
   </section>
